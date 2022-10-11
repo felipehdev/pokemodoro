@@ -4,69 +4,83 @@ import { useState } from "react";
 import "./App.css";
 
 const App = () => {
-  //gerenciador do tempo total em segundos
-  const [timer, setTimer] = useState(25 * 60);
+  // setTimeout(() => setTimer(timer - 1), 1000);
+
+  //gestao do tempo
+  const tFocus = 5;
+  const tBreak = 10;
+  const [timer, setTimer] = useState(tFocus);
 
   const minutes = Math.floor(timer / 60)
     .toString()
     .padStart(2, "0");
   const seconds = (timer % 60).toString().padStart(2, "0");
 
+  //cronometro on ou off
+  const [on, setOn] = useState(false);
 
-  //gerenciador toDo
-  const [toDo, setToDo] = useState("Lets Start");
+  //gestao da atividade
+  const dInit = 'click to  start'
+  const dFocus = 'time to focus'
+  const dBreak = 'time to take a break'
+  const[ toDo, setToDo] = useState(dInit);
 
-  //gerenciador do botao
-  const [btnTxt, setButtonTxt] = useState("START");
+  //gestao do texto do botao
+  const start = "START";
+  const pause = "PAUSE";
+  const pokemon = "GET POKEMON";
+  const [btnTxt, setButtonTxt] = useState(start);
 
-  //a cada mudança no timer
   useEffect(() => {
-    if (timer === 25 * 60) {
-      setButtonTxt("START");
+    if (timer === 0 && toDo === dBreak && on === true) {
+      setOn(false);
+      setButtonTxt(start);
+      setToDo(dFocus);
+      setTimer(tFocus)
     }
     else if (timer === 0) {
-      setButtonTxt("Get Pokemon");
-    }
-
-    else if (btnTxt === 'PAUSE') {
-      setTimeout(() => setTimer(timer - 1), 1000);
-
-    }
-
-    
-    else {
-      
-
+      setOn(false);
+      setButtonTxt(pokemon);
+    } else if (on === true) {
+      setTimeout(() => {
+        setTimer(timer - 1);
+      }, 1000);
     }
   }, [timer]);
 
-
   function timerBtn() {
-    if (btnTxt === "START") {
-      setButtonTxt("PAUSE");
-      setToDo("Time to Focus");
-      setTimer(timer-1)
-      
-    } else if (btnTxt === "PAUSE") {
-      console.log('botao em pause clicado');
-      setButtonTxt("START");
+    if (btnTxt === start && toDo === dBreak) {
+      setOn(true);
+      setTimer(timer - 1);
+      console.log(on);
+      setButtonTxt(pause);
+    }
+    else if (btnTxt === start) {
+      setOn(true);
+      setToDo(dFocus)
+      setTimer(timer - 1);
+      console.log(on);
+      setButtonTxt(pause);
 
+    } else if (btnTxt === pause) {
+      setOn(false);
+      console.log(on);
+      setButtonTxt(start);
 
-
+    } else if (btnTxt === pokemon) {
+      console.log(`requisiçao feita a pokeapi`);
+      setToDo(dBreak)
+      setTimer(tBreak);
+      setButtonTxt(start);
     }
   }
-
-  // function startTimer() {
-  //   setTimer(setInterval(() => setMinutes(minutes - 1), 1000));
-  // }
 
   return (
     <div>
       <h1>pokemodoro</h1>
-
       <span>{toDo}</span>
       <br />
-      <br />
+      <br />      
       <span>{minutes}</span>
       <span> : </span>
       <span>{seconds}</span>
