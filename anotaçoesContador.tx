@@ -1,0 +1,23 @@
+usar funçoes
+math.ceil = arredonda para cima
+-> math.floor = arredonda para baixo
+math.round = arredonda para o inteiro mais proximo
+
+
+adicionar o 00 quando o numero for inteiro
+usar funçao .padStart = ( 2, "0")
+padStart  só funciona com string 
+entao tem que transformar o valor da ocns em string
+
+useEffect
+recebe um callback e um array
+a callback é a funçao que vai ser executada a cada mudança no elemento dentro do array
+
+
+usar setTimeout para evitar que o useEffect seja acionado em loop
+o setTimeout recebe uma callback e um valor numerico em milesimos de segundo.
+
+
+quando o cronometro chegar a 0 é preciso gerar uma condiçao paa o tempo 0
+exibir o botao pegar pokemon e
+transformar o botao em descanso.
