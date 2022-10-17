@@ -5,7 +5,7 @@ import "./App.css";
 
 const App = () => {
   //gestao do tempo (controller)
-  const tFocus = 1;
+  const tFocus = 3;
   const tBreak = 0.1 * 60;
   const [timer, setTimer] = useState(tFocus);
 
@@ -18,9 +18,9 @@ const App = () => {
   const [on, setOn] = useState(false);
 
   //gestao da atividade (controller)
-  const dInit = "click to  start";
-  const dFocus = "time to focus";
-  const dBreak = "time to take a break";
+  const dInit = "CLICK TO START";
+  const dFocus = "TIME TO FOCUS";
+  const dBreak = "TIME TO TAKE A BREAK";
   const [toDo, setToDo] = useState(dInit);
 
   //gestao do texto do botao
@@ -29,7 +29,10 @@ const App = () => {
   const getPokemon = "GET POKEMON";
   const [btnTxt, setButtonTxt] = useState(start);
 
-  //gestao do pokemon requerido
+  //gestao da requsiçao
+  const [ resp, setResp ] = useState('');
+
+  //gestao do pokemon
   const [pokemon, setPokemon] = useState('');
 
   //timer controller
@@ -48,16 +51,8 @@ const App = () => {
       }, 1000);
     }
   }, [timer]);
-
+  
   //pokemon request controller
-
-  // console.log(`efeito get pokemon`);
-  //     fetch("https://pokeapi.co/api/v2/pokemon/1")
-  //       .then((response) => response.json())
-  //       .then((json) => console.log(json))
-  //       .then(setPokemon(json))
-  //       .then(console.log(pokemon))
-
   const getData = async () => {
     const randomN = Math.floor(Math.random() * 906);
     console.log(randomN);
@@ -66,7 +61,8 @@ const App = () => {
     );
     const data = await response.json();
     console.log(data);
-    setPokemon(data);
+    console.log(data.id);
+    setResp(data);
     console.log(pokemon);
   };
 
@@ -74,8 +70,12 @@ const App = () => {
     if (btnTxt === getPokemon) {
       console.log(`condiçoes atendidas, vai fazer a req`);
       getData();
+      
     }
   }, [btnTxt]);
+
+
+
 
   //gerenciador do botao, onclick
   function timerBtn() {
@@ -101,11 +101,25 @@ const App = () => {
       console.log(on);
       //se POKEMON
     } else if (btnTxt === getPokemon) {
+      setTimeout(() => {
+        setPokemon(resp)        
+      }, 500);
+      
       setToDo(dBreak);
       setTimer(tBreak);
       setButtonTxt(start);
       console.log(pokemon);
     }
+  }
+
+  const [ pokelist, setPokelist] = useState([''])
+
+  function pokeSaver() {
+
+    setPokelist(poke => [...poke, pokemon.id] )
+    
+
+
   }
 
   return (
@@ -127,14 +141,25 @@ const App = () => {
         {pokemon ? (
           <div>
             <img src={pokemon.sprites.front_default} alt="" />
+            <br />
             <span>{pokemon.order}</span>
             <span> - </span>
             <span>{pokemon.name}</span>
+            <span> - </span>
+            <span>{pokemon.types[0].type.name}</span>
+            <br />
+            <br />
+            <button onClick={() => pokeSaver()}>Save</button>
           </div>
         ) : (
           ''
         )}
       </div>
+      <span>
+        {pokelist ? ( <span>{ pokelist }</span>) : ('') }
+       
+      </span>
+      
     </div>
   );
 };
