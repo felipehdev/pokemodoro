@@ -30,7 +30,7 @@ const App = () => {
   const [btnTxt, setButtonTxt] = useState(start);
 
   //gestao do pokemon requerido
-  const [pokemon, setPokemon] = useState({});
+  const [pokemon, setPokemon] = useState('');
 
   //timer controller
   useEffect(() => {
@@ -57,28 +57,26 @@ const App = () => {
   //       .then((json) => console.log(json))
   //       .then(setPokemon(json))
   //       .then(console.log(pokemon))
-        
-
 
   const getData = async () => {
-    const response = await fetch("https://pokeapi.co/api/v2/pokemon/1")
-    const data = await response.json()      
+    const randomN = Math.floor(Math.random() * 906);
+    console.log(randomN);
+    const response = await fetch(
+      `https://pokeapi.co/api/v2/pokemon/${randomN}`
+    );
+    const data = await response.json();
     console.log(data);
-    setPokemon(data)
+    setPokemon(data);
     console.log(pokemon);
-  }
-
-
-
+  };
 
   useEffect(() => {
     if (btnTxt === getPokemon) {
       console.log(`condiçoes atendidas, vai fazer a req`);
-      getData()   
+      getData();
     }
   }, [btnTxt]);
 
-  
   //gerenciador do botao, onclick
   function timerBtn() {
     //se START durante o INTERVALO
@@ -126,17 +124,16 @@ const App = () => {
       </div>
 
       <div>
-        {pokemon ?
-        <div>
-          <span>{pokemon.order}</span>
-          <span> - </span>
-          <span>{pokemon.name}</span>          
-        </div>
-        :
-        ''
-        
-      }
-        
+        {pokemon ? (
+          <div>
+            <img src={pokemon.sprites.front_default} alt="" />
+            <span>{pokemon.order}</span>
+            <span> - </span>
+            <span>{pokemon.name}</span>
+          </div>
+        ) : (
+          ''
+        )}
       </div>
     </div>
   );
