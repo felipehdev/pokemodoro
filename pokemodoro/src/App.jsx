@@ -54,7 +54,7 @@ const App = () => {
   
   //pokemon request controller
   const getData = async () => {
-    const randomN = Math.floor(Math.random() * 906);
+    const randomN = Math.floor((Math.random() * 906))+1;
     console.log(randomN);
     const response = await fetch(
       `https://pokeapi.co/api/v2/pokemon/${randomN}`
@@ -117,20 +117,15 @@ const App = () => {
   console.log(pokelist);
 
   function pokeSaver() {
-    if (!pokelist) {
-      setPokelist(poke => [...poke, pokemon.id] )
-      
-    }
-    else {
-      setPokelist(poke => [...poke, ', '+pokemon.id] )
-
-    }
-
-    
-    
-
-
+    setPokelist(poke => [...poke, pokemon.id] )
   }
+
+  //funçao que imprime oss pokemons salvos do user
+  pokelist.map(
+
+
+  )
+
 
   return (
     <div>
