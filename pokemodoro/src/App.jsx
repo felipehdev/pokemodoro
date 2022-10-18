@@ -106,28 +106,37 @@ const App = () => {
   }
 
   //gerenciador dos pokemons salvos (esses dados vem da database)
-  const [pokelist, setPokelist] = useState([1, 2, 3, 4, 5]);
-  console.log(pokelist);
+  const [pokeIds, setPokeIds] = useState([450, 92, 499]);
+  console.log(pokeIds);
 
   function pokeSaver() {
-    setPokelist((newPoke) => [...newPoke, pokemon.id]);
+    setPokeIds((newPoke) => [...newPoke, pokemon.id]);
   }
 
   //controller que que faz a requisiçao dos pokemons que o user ja tem
-  const [toPrint, setToPrint] = useState("");
+  const [toPrint, setToPrint] = useState([]);
   console.log(toPrint);
+  console.log();
 
   //funçao que salva o dados dos pokemons antes de serem impressos (o gatilho pode ser mudado)
   function updatePokedex() {
-    pokelist.map(async (id) => {
+    pokeIds.map(async (id) => {
       const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
       const data = await response.json();
       setToPrint((newToPrint) => [...newToPrint, data]);
     });
-    
   }
 
- 
+  // funçao que imprime os dados (toPrint) na tela
+  const listPokemons = toPrint.map(
+    (pokeObj) =>      
+      <p>{pokeObj.name}</p>
+      
+    
+  )
+
+  //
+
   return (
     <div>
       <div>
@@ -161,10 +170,18 @@ const App = () => {
           ""
         )}
       </div>
-      <span>{pokelist ? <span>{pokelist}</span> : ""}</span>
+      <span>{pokeIds ? <span>{pokeIds}</span> : ""}</span>
       <br />
       <br />
-      <button onClick={()=> updatePokedex()}>Update</button>
+      <button onClick={() => updatePokedex()}>Update</button>
+
+      <br />
+      <br />
+      <div>
+        <ul>
+          {listPokemons ? listPokemons : ''}
+        </ul>
+      </div>
     </div>
   );
 };
