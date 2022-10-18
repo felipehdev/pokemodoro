@@ -112,11 +112,21 @@ const App = () => {
     }
   }
 
-  const [ pokelist, setPokelist] = useState([''])
+  //gerenciador dos pokemons salvos
+  const [ pokelist, setPokelist] = useState('')
+  console.log(pokelist);
 
   function pokeSaver() {
+    if (!pokelist) {
+      setPokelist(poke => [...poke, pokemon.id] )
+      
+    }
+    else {
+      setPokelist(poke => [...poke, ', '+pokemon.id] )
 
-    setPokelist(poke => [...poke, pokemon.id] )
+    }
+
+    
     
 
 
