@@ -5,8 +5,8 @@ import "./App.css";
 
 const App = () => {
   //gestao do tempo (controller)
-  const tFocus = 3;
-  const tBreak = 0.1 * 60;
+  const tFocus = 1;
+  const tBreak = 2;
   const [timer, setTimer] = useState(tFocus);
 
   const minutes = Math.floor(timer / 60)
@@ -60,10 +60,7 @@ const App = () => {
       `https://pokeapi.co/api/v2/pokemon/${randomN}`
     );
     const data = await response.json();
-    console.log(data);
-    console.log(data.id);
     setResp(data);
-    console.log(pokemon);
   };
 
   useEffect(() => {
@@ -113,19 +110,20 @@ const App = () => {
   }
 
   //gerenciador dos pokemons salvos
-  const [ pokelist, setPokelist] = useState('')
+  const [ pokelist, setPokelist] = useState([])
   console.log(pokelist);
 
   function pokeSaver() {
-    setPokelist(poke => [...poke, pokemon.id] )
+    setPokelist(newPoke => [...newPoke, pokemon.id] )
   }
 
   //funçao que imprime oss pokemons salvos do user
-  pokelist.map(
 
-
-  )
-
+  const savedPoke = pokelist.map(
+    (poke,i) =>
+    <li key={i}>{poke}</li>
+    )
+  
 
   return (
     <div>
@@ -164,6 +162,14 @@ const App = () => {
         {pokelist ? ( <span>{ pokelist }</span>) : ('') }
        
       </span>
+      <br />
+      <br />
+      <div>
+        <ul>
+          {savedPoke}
+        </ul>
+       
+      </div>
       
     </div>
   );
