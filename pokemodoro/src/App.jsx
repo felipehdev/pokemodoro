@@ -4,6 +4,8 @@ import { useState } from "react";
 import "./App.css";
 
 const App = () => {
+
+  // 01. CONTROLE DO RELOGIO
   //gestao do tempo (controller)
   const tFocus = 1;
   const tBreak = 2;
@@ -29,10 +31,10 @@ const App = () => {
   const getPokemon = "GET POKEMON";
   const [btnTxt, setButtonTxt] = useState(start);
 
-  //gestao da requsiçao
+  //gestao da requsiçao do pokemon
   const [resp, setResp] = useState("");
 
-  //gestao do pokemon
+  //gestao do pokemon sorteado
   const [pokemon, setPokemon] = useState("");
 
   //timer controller
@@ -65,7 +67,6 @@ const App = () => {
 
   useEffect(() => {
     if (btnTxt === getPokemon) {
-      console.log(`condiçoes atendidas, vai fazer a req`);
       getData();
     }
   }, [btnTxt]);
@@ -106,9 +107,10 @@ const App = () => {
   }
 
   //gerenciador dos pokemons salvos (esses dados vem da database)
-  const [pokeIds, setPokeIds] = useState([450, 92, 499]);
+  const [pokeIds, setPokeIds] = useState([]);
   console.log(pokeIds);
 
+  //antes do deploy essa funçao precisa ser modificada para modiicar os dados na api
   function pokeSaver() {
     setPokeIds((newPoke) => [...newPoke, pokemon.id]);
   }
@@ -129,8 +131,21 @@ const App = () => {
 
   // funçao que imprime os dados (toPrint) na tela
   const listPokemons = toPrint.map(
-    (pokeObj) =>      
-      <p>{pokeObj.name}</p>
+    (pokeObj) =>
+    <div>
+      <span>{pokeObj.id}</span> - <span>{pokeObj.name}</span>
+      <br />
+      <img src={pokeObj.sprites.front_default}/>
+      <br />
+      <span>{pokeObj.types[0].type.name}</span>
+      
+      <span>{pokeObj.types[1] ? ( ` - ${pokeObj.types[1].type.name}`) : ''} </span>
+      <br />
+      <br />
+      <br />
+      <br />
+    </div>   
+      
       
     
   )
@@ -165,16 +180,17 @@ const App = () => {
             <br />
             <br />
             <button onClick={() => pokeSaver()}>Save</button>
+            <br />
+            <span>{ (`Seus pokemons salvos: ${pokeIds}` ) ? pokeIds : ''} </span>
           </div>
         ) : (
           ""
         )}
       </div>
-      <span>{pokeIds ? <span>{pokeIds}</span> : ""}</span>
       <br />
       <br />
       <button onClick={() => updatePokedex()}>Update</button>
-
+      <br />
       <br />
       <br />
       <div>
@@ -182,6 +198,11 @@ const App = () => {
           {listPokemons ? listPokemons : ''}
         </ul>
       </div>
+      <br />
+      <br />
+      <span>🙅‍♂️ nao tem como</span>
+      <br />
+      <span> felipr.com</span>
     </div>
   );
 };
