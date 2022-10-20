@@ -2,6 +2,7 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import "./App.css";
+import Login from "./components/Login/Login";
 
 const App = () => {
 
@@ -29,10 +30,7 @@ const App = () => {
   const start = "START";
   const pause = "PAUSE";
   const getPokemon = "GET POKEMON";
-  const [btnTxt, setButtonTxt] = useState(start);
-
-  //gestao da requsiçao do pokemon
-  const [resp, setResp] = useState("");
+  const [btnTxt, setButtonTxt] = useState(start);  
 
   //gestao do pokemon sorteado
   const [pokemon, setPokemon] = useState("");
@@ -54,10 +52,15 @@ const App = () => {
     }
   }, [timer]);
 
+
+  // 02. CONTROLE DA REQUISIÇAO DO POKEMON
+
+  //gestao da requsiçao do pokemon
+  const [resp, setResp] = useState("");
+
   //pokemon request controller
   const getData = async () => {
     const randomN = Math.floor(Math.random() * 906) + 1;
-    console.log(randomN);
     const response = await fetch(
       `https://pokeapi.co/api/v2/pokemon/${randomN}`
     );
@@ -65,6 +68,7 @@ const App = () => {
     setResp(data);
   };
 
+  // condiçao para requerer pokemon
   useEffect(() => {
     if (btnTxt === getPokemon) {
       getData();
@@ -109,13 +113,15 @@ const App = () => {
   //gerenciador dos pokemons salvos (esses dados vem da database)
   const [pokeIds, setPokeIds] = useState([]);
   console.log(pokeIds);
-
-  //antes do deploy essa funçao precisa ser modificada para modiicar os dados na api
+  
+  //pokersaver chamado no click do botao salvar
   function pokeSaver() {
     setPokeIds((newPoke) => [...newPoke, pokemon.id]);
   }
 
-  //controller que que faz a requisiçao dos pokemons que o user ja tem
+  //
+
+  //controller que que salva a requisiçao dos pokemons que o user ja tem e prepara para imprimir
   const [toPrint, setToPrint] = useState([]);
   console.log(toPrint);
   console.log();
@@ -129,7 +135,7 @@ const App = () => {
     });
   }
 
-  // funçao que imprime os dados (toPrint) na tela
+  // funçao que imprime os pokemons (toPrint) na tela
   const listPokemons = toPrint.map(
     (pokeObj) =>
     <div>
@@ -181,7 +187,7 @@ const App = () => {
             <br />
             <button onClick={() => pokeSaver()}>Save</button>
             <br />
-            <span>{ (`Seus pokemons salvos: ${pokeIds}` ) ? pokeIds : ''} </span>
+            <span>{ pokeIds  ? (`Seus pokemons salvos: ${pokeIds}`) : ''} </span>
           </div>
         ) : (
           ""
@@ -199,6 +205,8 @@ const App = () => {
         </ul>
       </div>
       <br />
+      <br />
+      <Login/>
       <br />
       <span>🙅‍♂️ nao tem como</span>
       <br />
