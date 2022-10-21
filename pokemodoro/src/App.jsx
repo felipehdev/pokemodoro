@@ -5,7 +5,6 @@ import "./App.css";
 import Login from "./components/Login/Login";
 
 const App = () => {
-
   // 01. CONTROLE DO RELOGIO
   //gestao do tempo (controller)
   const tFocus = 1;
@@ -30,10 +29,9 @@ const App = () => {
   const start = "START";
   const pause = "PAUSE";
   const getPokemon = "GET POKEMON";
-  const [btnTxt, setButtonTxt] = useState(start);  
+  const [btnTxt, setButtonTxt] = useState(start);
 
-  //gestao do pokemon sorteado
-  const [pokemon, setPokemon] = useState("");
+  
 
   //timer controller
   useEffect(() => {
@@ -52,6 +50,8 @@ const App = () => {
     }
   }, [timer]);
 
+  //gestao do pokemon sorteado
+  const [pokemon, setPokemon] = useState("");
 
   // 02. CONTROLE DA REQUISIÇAO DO POKEMON
 
@@ -110,10 +110,13 @@ const App = () => {
     }
   }
 
+  //user e logged, importado do children form
+  
+
   //gerenciador dos pokemons salvos (esses dados vem da database)
   const [pokeIds, setPokeIds] = useState([]);
   console.log(pokeIds);
-  
+
   //pokersaver chamado no click do botao salvar
   function pokeSaver() {
     setPokeIds((newPoke) => [...newPoke, pokemon.id]);
@@ -136,81 +139,62 @@ const App = () => {
   }
 
   // funçao que imprime os pokemons (toPrint) na tela
-  const listPokemons = toPrint.map(
-    (pokeObj) =>
+  const listPokemons = toPrint.map((pokeObj) => (
     <div>
       <span>{pokeObj.id}</span> - <span>{pokeObj.name}</span>
       <br />
-      <img src={pokeObj.sprites.front_default}/>
+      <img src={pokeObj.sprites.front_default} />
       <br />
       <span>{pokeObj.types[0].type.name}</span>
-      
-      <span>{pokeObj.types[1] ? ( ` - ${pokeObj.types[1].type.name}`) : ''} </span>
+      <span>{pokeObj.types[1] ? ` - ${pokeObj.types[1].type.name}` : ""} </span>
       <br />
       <br />
       <br />
       <br />
-    </div>   
-      
-      
-    
-  )
+    </div>
+  ));
 
   //
 
   return (
-    <div>
-      <div>
+    <div className="div">
+      <div className="timer">
         <h1>pokemodoro</h1>
         <span>{toDo}</span>
-        <br />
-        <br />
-        <span>{minutes}</span>
-        <span> : </span>
-        <span>{seconds}</span>
-        <br />
-        <br />
+        <div>
+          <span>{minutes}</span>
+          <span> : </span>
+          <span>{seconds}</span>
+        </div>
         <button onClick={() => timerBtn()}>{btnTxt}</button>
       </div>
 
       <div>
         {pokemon ? (
-          <div>
+          <div className="prizeDiv">
+            <div>
             <img src={pokemon.sprites.front_default} alt="" />
-            <br />
-            <span>{pokemon.order}</span>
-            <span> - </span>
-            <span>{pokemon.name}</span>
-            <span> - </span>
-            <span>{pokemon.types[0].type.name}</span>
-            <br />
-            <br />
+            <div>
+              <span>{pokemon.order}</span>
+              <span> - </span>
+              <span>{pokemon.name}</span>
+            </div>            
+            <div>{pokemon.types[0].type.name}</div>
+            </div>
             <button onClick={() => pokeSaver()}>Save</button>
-            <br />
-            <span>{ pokeIds  ? (`Seus pokemons salvos: ${pokeIds}`) : ''} </span>
+            <div>{pokeIds ? `Seus pokemons salvos: ${pokeIds}` : ""} </div>
           </div>
         ) : (
           ""
         )}
       </div>
-      <br />
-      <br />
       <button onClick={() => updatePokedex()}>Update</button>
-      <br />
-      <br />
-      <br />
       <div>
-        <ul>
-          {listPokemons ? listPokemons : ''}
-        </ul>
+        <ul>{listPokemons ? listPokemons : ""}</ul>
       </div>
-      <br />
-      <br />
-      <Login/>
-      <br />
-      <span>🙅‍♂️ nao tem como</span>
-      <br />
-      <span> felipr.com</span>
+      <Login />
+      <h3>🙅‍♂️ nao tem como</h3>
+      <h2> felipr.com</h2>
     </div>
   );
 };
