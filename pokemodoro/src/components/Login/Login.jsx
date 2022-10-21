@@ -1,6 +1,5 @@
 import React from "react";
 import { useState } from "react";
-import { createContext } from "react";
 import sha256 from "js-sha256";
 import axios from "axios";
 
@@ -13,9 +12,6 @@ const Login = () => {
 
   //user logado?
   const [logged, setLogged] = useState(false);
-
-  const UserContext = createContext(user);
-  const LoggedContext = createContext(logged);
 
   // REGISTRAR USUARIO
   //create user (chamada no click register) (importar pra outro documento)
@@ -98,10 +94,6 @@ const Login = () => {
         <br />
         <input type="submit" value="login" onClick={loginOnClick} />
       </form>
-
-      <UserContext.Provider value={user}>
-        <p>provider</p>
-      </UserContext.Provider>
     </div>
   );
 };
