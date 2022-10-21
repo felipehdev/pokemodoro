@@ -110,7 +110,11 @@ const App = () => {
     }
   }
 
-  //user e logged, importado do children form
+  //user e logged, importado do children form  
+  const [ user, setUser] = useState('')
+  const [logged, setLogged] = useState('')
+  
+
   
 
   //gerenciador dos pokemons salvos (esses dados vem da database)
@@ -192,7 +196,9 @@ const App = () => {
       <div>
         <ul>{listPokemons ? listPokemons : ""}</ul>
       </div>
-      <Login />
+      <Login setUser={setUser} setLogged={setLogged} user={user} />
+      {user}
+      {logged}
       <h3>🙅‍♂️ nao tem como</h3>
       <h2> felipr.com</h2>
     </div>
