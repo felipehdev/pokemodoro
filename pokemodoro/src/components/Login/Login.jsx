@@ -5,16 +5,17 @@ import axios from "axios";
 import S from './Login.module.css'
 
 
-const Login = () => {
+const Login = ({setUser, setLogged, user}) => {
   //user inserido pelo usuario
-  const [ user, setUser] = useState('')
+
+  console.log(user);
 
 
 
   //password inserido pelo usuario
+  
   const [password, setPassword] = useState("");
-
-  const [ logged , setLogged ] = useState('');
+  console.log(password);
 
   // REGISTRAR USUARIO
   //create user (chamada no click register) (importar pra outro documento)
@@ -43,12 +44,12 @@ const Login = () => {
   const [requestedData, setRequestedData] = useState(
     "valor inicial requested data"
   );
-  console.log(requestedData.password);
-  const password256 = sha256(password);
+  const password256 = sha256(password); 
   console.log(password256);
 
   //get user (usado no login)
   async function reqUser() {
+    console.log(user);
     const response = await axios.get(
       `https://pokemodoro-api.herokuapp.com/user/${user}`
     );
@@ -86,7 +87,6 @@ const Login = () => {
         <input
           type="password"
           placeholder="password"
-          value={password}
           onChange={(e) => setPassword(e.target.value)}
           name="password"
           id="password"
