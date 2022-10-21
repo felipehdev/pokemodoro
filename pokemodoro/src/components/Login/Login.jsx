@@ -2,16 +2,19 @@ import React from "react";
 import { useState } from "react";
 import sha256 from "js-sha256";
 import axios from "axios";
+import S from './Login.module.css'
+
 
 const Login = () => {
   //user inserido pelo usuario
-  const [user, setUser] = useState("");
+  const [ user, setUser] = useState('')
+
+
 
   //password inserido pelo usuario
   const [password, setPassword] = useState("");
 
-  //user logado?
-  const [logged, setLogged] = useState(false);
+  const [ logged , setLogged ] = useState('');
 
   // REGISTRAR USUARIO
   //create user (chamada no click register) (importar pra outro documento)
@@ -69,16 +72,17 @@ const Login = () => {
 
   return (
     <div>
-      <form action="" method="get">
+      
+      <form className={S.form} action="" method="get">
+      <h4>login or register</h4>
+      <h5>to save your pokemons</h5>
         <input
           type="text"
           placeholder="user"
-          value={user}
           onChange={(e) => setUser(e.target.value)}
           name="user"
           id="user"
         />
-        <br />
         <input
           type="password"
           placeholder="password"
@@ -87,13 +91,10 @@ const Login = () => {
           name="password"
           id="password"
         />
-        <br />
-        <br />
         <input type="submit" value="register" onClick={registerOnClick} />
-        <br />
-        <br />
-        <input type="submit" value="login" onClick={loginOnClick} />
+        <input type="submit" value="login" onClick={loginOnClick} />        
       </form>
+      
     </div>
   );
 };
