@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import "./App.css";
 import Login from "./components/Login/Login";
+import SavedPokemons from "./components/SavedPokemons/SavedPokemons";
 
 const App = () => {
   // 01. CONTROLE DO RELOGIO
@@ -112,35 +113,31 @@ const App = () => {
 
   //user e logged, importado do children form  
   const [ user, setUser] = useState('')
-  const [logged, setLogged] = useState('')
-  
+  const [logged, setLogged] = useState(false)
+  const [requestedData, setRequestedData] = useState("valor inicial requested data");  
 
-  
-
-  //gerenciador dos pokemons salvos (esses dados vem da database)
+  //gerenciador dos pokemons salvos deve fazer um axios.put pro array de pokemons do user
   const [pokeIds, setPokeIds] = useState([]);
-  console.log(pokeIds);
 
-  //pokersaver chamado no click do botao salvar
-  function pokeSaver() {
-    setPokeIds((newPoke) => [...newPoke, pokemon.id]);
-  }
-
-  //
-
-  //controller que que salva a requisiçao dos pokemons que o user ja tem e prepara para imprimir
-  const [toPrint, setToPrint] = useState([]);
-  console.log(toPrint);
-  console.log();
-
-  //funçao que salva o dados dos pokemons antes de serem impressos (o gatilho pode ser mudado)
-  function updatePokedex() {
+  //funçao que salva os dados dos pokemons antes de serem impressos (o gatilho pode ser mudado)
+  function printPokedex() {
     pokeIds.map(async (id) => {
       const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
       const data = await response.json();
       setToPrint((newToPrint) => [...newToPrint, data]);
     });
   }
+
+  //pokersaver chamado no click do botao salvar 
+  function pokeSaver() {
+    setPokeIds((newPoke) => [...newPoke, pokemon.id]);
+  }
+
+
+
+  //controller que que salva a requisiçao dos pokemons que o user ja tem e prepara para imprimir
+  const [toPrint, setToPrint] = useState([]);
+  
 
   // funçao que imprime os pokemons (toPrint) na tela
   const listPokemons = toPrint.map((pokeObj) => (
@@ -192,13 +189,16 @@ const App = () => {
           ""
         )}
       </div>
-      <button onClick={() => updatePokedex()}>Update</button>
+      <button onClick={() => printPokedex()}>Update</button>
       <div>
         <ul>{listPokemons ? listPokemons : ""}</ul>
       </div>
-      <Login setUser={setUser} setLogged={setLogged} user={user} />
-      {user}
-      {logged}
+      <Login setUser={setUser} setLogged={setLogged} setRequestedData={setRequestedData} user={user} requestedData={requestedData}/>
+      <div>
+      {logged ? ('LOGOU') : ''}
+      </div>
+      <br />
+      <SavedPokemons requestedData={requestedData}/>
       <h3>🙅‍♂️ nao tem como</h3>
       <h2> felipr.com</h2>
     </div>

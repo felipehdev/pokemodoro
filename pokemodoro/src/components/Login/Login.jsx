@@ -5,15 +5,11 @@ import axios from "axios";
 import S from './Login.module.css'
 
 
-const Login = ({setUser, setLogged, user}) => {
+const Login = ({setUser, setLogged,setRequestedData, user, requestedData}) => {
   //user inserido pelo usuario
-
   console.log(user);
 
-
-
-  //password inserido pelo usuario
-  
+  //password inserido pelo usuario  
   const [password, setPassword] = useState("");
   console.log(password);
 
@@ -41,11 +37,8 @@ const Login = ({setUser, setLogged, user}) => {
   // LOGIN DE USUARIO
 
   //aqui é salva o resultado da requisiçao (um objeto)
-  const [requestedData, setRequestedData] = useState(
-    "valor inicial requested data"
-  );
+  
   const password256 = sha256(password); 
-  console.log(password256);
 
   //get user (usado no login)
   async function reqUser() {
@@ -58,8 +51,8 @@ const Login = ({setUser, setLogged, user}) => {
 
     if (response.data.password === password256) {
       setLogged(true);
-      localStorage.setItem("user", response.data.name);
       console.log(`usuario logou`);
+      console.log(response.data);
     } else {
       console.log(`algo nao deu certo`);
     }
