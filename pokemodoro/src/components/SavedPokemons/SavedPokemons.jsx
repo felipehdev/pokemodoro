@@ -16,9 +16,23 @@ const SavedPokemons = ({ requestedData }) => {
         const data = await response.json();
         setToPrint((newToPrint) => [...newToPrint, data]);
       }
-    )
-    
+    )   
   }
+
+  const lPokemons = toPrint.map((pokeObj) => (
+    <div>
+      <span>{pokeObj.id}</span> - <span>{pokeObj.name}</span>
+      <br />
+      <img src={pokeObj.sprites.front_default} />
+      <br />
+      <span>{pokeObj.types[0].type.name}</span>
+      <span>{pokeObj.types[1] ? ` - ${pokeObj.types[1].type.name}` : ""} </span>
+      <br />
+      <br />
+      <br />
+      <br />
+    </div>
+  ));
 
 
   //funçao que imprime os pokes na tela
@@ -32,6 +46,7 @@ const SavedPokemons = ({ requestedData }) => {
       </div>
       <br />
       <button onClick={()=> reqPokeInfo()}>ver</button>
+      <ul>{lPokemons ? lPokemons : ""}</ul>
 
     </div>
   );
