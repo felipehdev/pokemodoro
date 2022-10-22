@@ -20,7 +20,7 @@ const SavedPokemons = ({ requestedData }) => {
   }
 
   const lPokemons = toPrint.map((pokeObj) => (
-    <div>
+    <div key={pokeObj.id}>
       <span>{pokeObj.id}</span> - <span>{pokeObj.name}</span>
       <br />
       <img src={pokeObj.sprites.front_default} />

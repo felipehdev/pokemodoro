@@ -183,7 +183,7 @@ const App = () => {
             <div>{pokemon.types[0].type.name}</div>
             </div>
             <button onClick={() => pokeSaver()}>Save</button>
-            <div>{pokeIds ? `Seus pokemons salvos: ${pokeIds}` : ""} </div>
+            <div>{pokeIds ? `Your saved pokemons: ${pokeIds}` : ""} </div>
           </div>
         ) : (
           ""
