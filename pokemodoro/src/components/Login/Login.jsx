@@ -51,6 +51,8 @@ const Login = ({setUser, setLogged,setRequestedData, user, requestedData}) => {
 
     if (response.data.password === password256) {
       setLogged(true);
+      localStorage.setItem("LoggedUserId", response.data._id)
+      localStorage.setItem("LoggedUserName", response.data.name)
       console.log(`usuario logou`);
       console.log(response.data);
     } else {
