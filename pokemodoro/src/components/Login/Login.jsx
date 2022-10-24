@@ -34,9 +34,7 @@ const Login = ({setUser, setLogged,setRequestedData, user, requestedData}) => {
     createUser();
   }
 
-  // LOGIN DE USUARIO
-
-  //aqui é salva o resultado da requisiçao (um objeto)
+  // LOGIN DE USUARIO  
   
   const password256 = sha256(password); 
 
@@ -60,7 +58,7 @@ const Login = ({setUser, setLogged,setRequestedData, user, requestedData}) => {
     }
   }
 
-  //funçao loginOnClick
+  //funçao chamada quando o user clica login
   function loginOnClick(e) {
     e.preventDefault();
     reqUser();

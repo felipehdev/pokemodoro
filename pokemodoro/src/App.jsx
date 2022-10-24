@@ -114,7 +114,8 @@ const App = () => {
   //user e logged, importado do children form  
   const [ user, setUser] = useState('')
   const [logged, setLogged] = useState(false)
-  const [requestedData, setRequestedData] = useState("valor inicial requested data");  
+  const [requestedData, setRequestedData] = useState("valor inicial requested data");
+  console.log(requestedData);  
 
   //gerenciador dos pokemons salvos deve fazer um axios.put pro array de pokemons do user
   const [pokeIds, setPokeIds] = useState([]);
@@ -193,12 +194,11 @@ const App = () => {
       <div>
         <ul>{listPokemons ? listPokemons : ""}</ul>
       </div>
-      <Login setUser={setUser} setLogged={setLogged} setRequestedData={setRequestedData} user={user} requestedData={requestedData}/>
       <div>
-      {logged ? ('LOGOU') : ''}
+      { localStorage.getItem("LoggedUserName") ? (<SavedPokemons requestedData={requestedData} setRequestedData={setRequestedData}/>) : (<Login setUser={setUser} setLogged={setLogged} setRequestedData={setRequestedData} user={user} requestedData={requestedData}/>)}
       </div>
       <br />
-      <SavedPokemons requestedData={requestedData}/>
+      
       <h3>🙅‍♂️ nao tem como</h3>
       <h2> felipr.com</h2>
     </div>
