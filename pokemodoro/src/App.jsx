@@ -118,12 +118,16 @@ const App = () => {
   );
   console.log(requestedData);
 
+  const [pokeInfo, setPokeInfo] = useState("");
+  console.log(pokeInfo);
+  console.log(pokeInfo.pokemons);
+
+  const [ render, setRender] = useState('')
+
   //pokersaver chamado no click do botao salvar
   function pokeSaver() {
 
     const pokeArr = [ pokemon.id, ...pokeInfo.pokemons ];
-      
-    console.log(pokeArr);
 
       const userId = localStorage.getItem("LoggedUserId") 
       axios.put(
@@ -132,17 +136,20 @@ const App = () => {
          pokemons: pokeArr,
         }).then(function (response) {
           console.log(`pokemon adicionado`);
+          setRender(1)
+          
         })
         .catch(function (error) {
           console.log(error);
         });
+        setTimeout(() => {
+          setPokemon('');
+        }, 500);
 
       }
 
   //requisiçao e save das infos dos pokemons
-  const [pokeInfo, setPokeInfo] = useState("");
-  console.log(pokeInfo);
-  console.log(pokeInfo.pokemons);
+  
 
   return (
     <div className="div">
@@ -182,6 +189,9 @@ const App = () => {
             setRequestedData={setRequestedData}
             pokeInfo={pokeInfo}
             setPokeInfo={setPokeInfo}
+            render={render}
+            
+            
           />
         ) : (
           <Login
