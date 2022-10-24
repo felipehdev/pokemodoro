@@ -3,11 +3,10 @@ import { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
 
-const SavedPokemons = ({ requestedData, setRequestedData }) => {
-
-  //requisiçao e save das infos dos pokemons
-  const [pokeInfo, setPokeInfo ] = useState('')
-  console.log(pokeInfo.pokemons);
+const SavedPokemons = ({ requestedData, setRequestedData, pokeInfo, setPokeInfo}) => {
+  
+  //busca o ID do usuario logado
+  const lSUserId = localStorage.getItem("LoggedUserId");
 
    // const que salvam os objetos antes de imprimir
   const [toPrint, setToPrint] = useState([]);
@@ -40,30 +39,21 @@ const SavedPokemons = ({ requestedData, setRequestedData }) => {
       setToPrint((newToPrint) => [...newToPrint, data]);
       console.log(toPrint);
     });
-  }
+  }  
 
-  const lSUserName = localStorage.getItem("LoggedUserId");
-  console.log(lSUserName);
-
+  //funçao que requer os dados quando user ja esta logado
   useEffect(() => {
     async function reqUser() {
       const response = await axios.get(
-        `https://pokemodoro-api.herokuapp.com/userId/${lSUserName}`
+        `https://pokemodoro-api.herokuapp.com/userId/${lSUserId}`
       );
       setPokeInfo(response.data);
       reqPokeInfo(response.data);
-      console.log('terminou de req user');
     }
     return () => {
       reqUser()
     }
-  }, [])
-  
-
-  //funçao que requer os dados quando user ja esta logado
-  
-  console.log(pokeInfo); 
-
+  }, [])  
   return (
     <div>
       <br />
@@ -74,13 +64,6 @@ const SavedPokemons = ({ requestedData, setRequestedData }) => {
       <br />
       <br />
       <span>Seus pokemons salvos:</span>
-      <br />
-      <div>
-      </div>
-      <br />
-      <button onClick={() => reqPokeInfo()}>ver</button>
-      <br />
-      <button onClick={()=> reqUser()}> imprimir</button>
       <ul>{lPokemons ? lPokemons : ""}</ul>
     </div>
   );
