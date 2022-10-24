@@ -4,6 +4,7 @@ import { useState } from "react";
 import "./App.css";
 import Login from "./components/Login/Login";
 import SavedPokemons from "./components/SavedPokemons/SavedPokemons";
+import axios from "axios";
 
 const App = () => {
   // 01. CONTROLE DO RELOGIO
@@ -31,8 +32,6 @@ const App = () => {
   const pause = "PAUSE";
   const getPokemon = "GET POKEMON";
   const [btnTxt, setButtonTxt] = useState(start);
-
-  
 
   //timer controller
   useEffect(() => {
@@ -111,51 +110,46 @@ const App = () => {
     }
   }
 
-  //user e logged, importado do children form  
-  const [ user, setUser] = useState('')
-  const [logged, setLogged] = useState(false)
-  const [requestedData, setRequestedData] = useState("valor inicial requested data");  
+  //user e logged, importado do children form
+  const [user, setUser] = useState("");
+  const [logged, setLogged] = useState(false);
+  const [requestedData, setRequestedData] = useState(
+    "valor inicial requested data"
+  );
+  console.log(requestedData);
 
-  //gerenciador dos pokemons salvos deve fazer um axios.put pro array de pokemons do user
-  const [pokeIds, setPokeIds] = useState([]);
+  const [pokeInfo, setPokeInfo] = useState("");
+  console.log(pokeInfo);
+  console.log(pokeInfo.pokemons);
 
-  //funçao que salva os dados dos pokemons antes de serem impressos (o gatilho pode ser mudado)
-  function printPokedex() {
-    pokeIds.map(async (id) => {
-      const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
-      const data = await response.json();
-      setToPrint((newToPrint) => [...newToPrint, data]);
-    });
-  }
+  const [ render, setRender] = useState('')
 
-  //pokersaver chamado no click do botao salvar 
+  //pokersaver chamado no click do botao salvar
   function pokeSaver() {
-    setPokeIds((newPoke) => [...newPoke, pokemon.id]);
-  }
 
+    const pokeArr = [ pokemon.id, ...pokeInfo.pokemons ];
 
+      const userId = localStorage.getItem("LoggedUserId") 
+      axios.put(
+        `https://pokemodoro-api.herokuapp.com/updatePokemons/${userId}`,
+         {
+         pokemons: pokeArr,
+        }).then(function (response) {
+          console.log(`pokemon adicionado`);
+          setRender(1)
+          
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+        setTimeout(() => {
+          setPokemon('');
+        }, 500);
 
-  //controller que que salva a requisiçao dos pokemons que o user ja tem e prepara para imprimir
-  const [toPrint, setToPrint] = useState([]);
+      }
+
+  //requisiçao e save das infos dos pokemons
   
-
-  // funçao que imprime os pokemons (toPrint) na tela
-  const listPokemons = toPrint.map((pokeObj) => (
-    <div>
-      <span>{pokeObj.id}</span> - <span>{pokeObj.name}</span>
-      <br />
-      <img src={pokeObj.sprites.front_default} />
-      <br />
-      <span>{pokeObj.types[0].type.name}</span>
-      <span>{pokeObj.types[1] ? ` - ${pokeObj.types[1].type.name}` : ""} </span>
-      <br />
-      <br />
-      <br />
-      <br />
-    </div>
-  ));
-
-  //
 
   return (
     <div className="div">
@@ -174,31 +168,43 @@ const App = () => {
         {pokemon ? (
           <div className="prizeDiv">
             <div>
-            <img src={pokemon.sprites.front_default} alt="" />
-            <div>
-              <span>{pokemon.order}</span>
-              <span> - </span>
-              <span>{pokemon.name}</span>
-            </div>            
-            <div>{pokemon.types[0].type.name}</div>
+              <img src={pokemon.sprites.front_default} alt="" />
+              <div>
+                <span>{pokemon.order}</span>
+                <span> - </span>
+                <span>{pokemon.name}</span>
+              </div>
+              <div>{pokemon.types[0].type.name}</div>
             </div>
             <button onClick={() => pokeSaver()}>Save</button>
-            <div>{pokeIds ? `Your saved pokemons: ${pokeIds}` : ""} </div>
           </div>
         ) : (
           ""
         )}
       </div>
-      <button onClick={() => printPokedex()}>Update</button>
       <div>
-        <ul>{listPokemons ? listPokemons : ""}</ul>
-      </div>
-      <Login setUser={setUser} setLogged={setLogged} setRequestedData={setRequestedData} user={user} requestedData={requestedData}/>
-      <div>
-      {logged ? ('LOGOU') : ''}
+        {localStorage.getItem("LoggedUserName") ? (
+          <SavedPokemons
+            requestedData={requestedData}
+            setRequestedData={setRequestedData}
+            pokeInfo={pokeInfo}
+            setPokeInfo={setPokeInfo}
+            render={render}
+            
+            
+          />
+        ) : (
+          <Login
+            setUser={setUser}
+            setLogged={setLogged}
+            setRequestedData={setRequestedData}
+            user={user}
+            requestedData={requestedData}
+          />
+        )}
       </div>
       <br />
-      <SavedPokemons requestedData={requestedData}/>
+
       <h3>🙅‍♂️ nao tem como</h3>
       <h2> felipr.com</h2>
     </div>
