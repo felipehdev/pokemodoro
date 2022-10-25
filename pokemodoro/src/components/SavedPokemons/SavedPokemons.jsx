@@ -12,6 +12,14 @@ const SavedPokemons = ({ requestedData, setRequestedData, pokeInfo, setPokeInfo,
   const [toPrint, setToPrint] = useState([]);
   console.log(toPrint);
 
+  // desconecta o user
+  function logOut() {
+    localStorage.removeItem("LoggedUserName");
+    localStorage.removeItem("LoggedUserId");
+    window.location.reload();
+  }
+
+  //IMPRESSAO DOS POKEMONS SALVOS
   // quando essa const existe ela aparece na pagina
   const lPokemons = toPrint.map((pokeObj) => (
     <li key={pokeObj.id}>
@@ -24,41 +32,42 @@ const SavedPokemons = ({ requestedData, setRequestedData, pokeInfo, setPokeInfo,
     </li>
   ));
 
-  function logOut() {
-    localStorage.removeItem("LoggedUserName");
-    localStorage.removeItem("LoggedUserId");
-    window.location.reload();
-  }
-
+  
   //aqui sao requeridas as infos de cada pokemon que o user tem e sao salvas em toprin
   function printPokeInfo(data) {
     console.log('iniciou req poke info');
     data.pokemons?.map(async (ids) => {
       const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${ids}`);
       const data = await response.json();
+      console.log(data);
       setToPrint((newToPrint) => [...newToPrint, data]);
       console.log(toPrint);
     });
   }
-  
 
-  //funçao que requer os dados quando user ja esta logado
+  
+  //funçao que requer os dados dos pokemons quando user ja esta logado
   useEffect(() => {
+
     async function reqUser() {
       const response = await axios.get(
         `https://pokemodoro-api.herokuapp.com/userId/${lSUserId}`
       );
       setPokeInfo(response.data);
+      setToPrint([])
       printPokeInfo(response.data);
+
     }
     return () => {
       reqUser()
     }
   }, [render])
 
+
+  // funçao que re renderiza a página
+
   return (
     <div>
-      {render}
       <br />
       <span>bem vindo: {localStorage.getItem("LoggedUserName")} </span>
       <br />
