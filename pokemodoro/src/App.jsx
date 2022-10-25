@@ -122,47 +122,48 @@ const App = () => {
   console.log(pokeInfo);
   console.log(pokeInfo.pokemons);
 
-
   //state que causa o render de componentes
-  const [ render, setRender ] = useState(1)
+  const [render, setRender] = useState(1);
 
-  //pokersaver chamado no click do botao salvar  
+  //pokersaver chamado no click do botao salvar
   function pokeSaver() {
+    const pokeArr = [pokemon.id, ...pokeInfo.pokemons];
 
-    const pokeArr = [ pokemon.id, ...pokeInfo.pokemons ];
+    const userId = localStorage.getItem("LoggedUserId");
+    axios
+      .put(`https://pokemodoro-api.herokuapp.com/updatePokemons/${userId}`, {
+        pokemons: pokeArr,
+      })
+      .then(function (response) {
+        console.log(`pokemon adicionado`);
+        setRender(Math.random);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
 
-      const userId = localStorage.getItem("LoggedUserId") 
-      axios.put(
-        `https://pokemodoro-api.herokuapp.com/updatePokemons/${userId}`,
-         {
-         pokemons: pokeArr,
-        }).then(function (response) {
-          console.log(`pokemon adicionado`);
-          setRender(Math.random)
-          
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-        
-        setTimeout(() => {
-          setPokemon('');
-        }, 500);
-
-
-      }
+    setTimeout(() => {
+      setPokemon("");
+    }, 500);
+  }
 
   return (
     <div className="div">
-      <div className="timer">
+      <nav>
         <h1>pokemodoro</h1>
-        <span>{toDo}</span>
-        <div>
-          <span>{minutes}</span>
-          <span> : </span>
-          <span>{seconds}</span>
+      </nav>
+      <div className="timer">
+        <div className="screen">
+          <span className="toDo">{toDo}</span>
+          <div className="minutes">
+            <span>{minutes}</span>
+            <span>:</span>
+            <span>{seconds}</span>
+          </div>
         </div>
-        <button onClick={() => timerBtn()}>{btnTxt}</button>
+        <button className="timerBtn" onClick={() => timerBtn()}>
+          {btnTxt}
+        </button>
       </div>
 
       <div>
@@ -177,7 +178,9 @@ const App = () => {
               </div>
               <div>{pokemon.types[0].type.name}</div>
             </div>
-            <button onClick={() => pokeSaver()}>Save</button>
+            <button className="prizeBtn" onClick={() => pokeSaver()}>
+              Save
+            </button>
           </div>
         ) : (
           ""
@@ -191,7 +194,6 @@ const App = () => {
             pokeInfo={pokeInfo}
             setPokeInfo={setPokeInfo}
             render={render}
-            
           />
         ) : (
           <Login
@@ -203,7 +205,6 @@ const App = () => {
           />
         )}
       </div>
-      <br />
 
       <h3>🙅‍♂️ nao tem como</h3>
       <h2> felipr.com</h2>

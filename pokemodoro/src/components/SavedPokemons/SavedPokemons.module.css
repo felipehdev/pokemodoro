@@ -1,0 +1,125 @@
+.loggedUserCtn {
+  display: flex;
+  gap: 1.3rem;
+  background: var(--color-dark);
+  width: fit-content;
+  border: 4px solid var(--color-dark);
+  border-radius: 6px 6px 0px 0px;
+  padding: 0rem 0.5rem 0rem 0.5rem;
+}
+.loggedUserTxt {
+  display: flex;
+  align-items: center;
+  font-family: var(--font-family-3);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-m);
+  color: var(--color-light);
+}
+.logOutBtn {
+  display: flex;
+  margin: 0.3rem auto;
+  align-items: center;
+  justify-content: center;
+  height: 20px;
+  background: #e71620;
+  box-shadow: 0px 4px 0px #d4979a;
+  border-radius: 5px;
+  padding: 0 0.7em;
+
+  font-family: var(--font-family-3);
+  font-size: var(--font-size-s);
+  font-weight: var(--font-weight-xbold);
+  color: #e3e2e7;
+}
+
+.savedPokemons {
+  width: 310px;
+  background-color: var(--color-light);
+  border: 4px solid var(--color-dark);
+  border-radius: 0px 6px 6px 6px;
+}
+
+.yourPokesTxt {
+  display: flex;
+  margin: 0 auto;
+  margin-top: 10px;
+  width: fit-content;
+  font-family: var(--font-family-3);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-s);
+  color: var(--color-dark);
+}
+
+.liCtn {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  list-style: none;
+  margin: 10px auto;
+  width: 290px;
+  background: var(--color-dark);
+  border: 1px solid var(--color-dark);
+  border-radius: 5px;
+}
+
+.pokeInfoCtn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+  max-height: 90px;
+}
+
+.pokeId {
+  display: flex;
+  font-family: var(--font-family-3);
+  font-weight: var(--font-weight-light);
+  font-size: var(--font-size-s);
+  align-items: center;
+  text-align: center;
+  color: var(--color-light);
+}
+
+.pokeName {
+  display: flex;
+  font-family: var(--font-family-3);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-g);
+  align-items: center;
+  text-align: center;
+
+  color: var(--color-light);
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.spriteBg {
+  background: var(--color-light);
+  border: 1px solid var(--color-dark);
+  border-radius: 4px 0px 0px 4px;
+}
+
+.pokeImg {
+  width: 100px;
+  height: 100px;
+}
+
+.typeCtn {
+  display: flex;
+  width: 100%;
+  justify-content: space-evenly;
+}
+
+.pokeType {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  padding: 0.2rem 0.5rem;
+  background: #b97fc9;
+  border-radius: 5px;
+
+  font-family: var(--font-family-3);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-r);
+  color: var(--color-dark);
+}
