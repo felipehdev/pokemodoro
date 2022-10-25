@@ -122,9 +122,11 @@ const App = () => {
   console.log(pokeInfo);
   console.log(pokeInfo.pokemons);
 
-  const [ render, setRender] = useState('')
 
-  //pokersaver chamado no click do botao salvar
+  //state que causa o render de componentes
+  const [ render, setRender ] = useState(1)
+
+  //pokersaver chamado no click do botao salvar  
   function pokeSaver() {
 
     const pokeArr = [ pokemon.id, ...pokeInfo.pokemons ];
@@ -136,20 +138,19 @@ const App = () => {
          pokemons: pokeArr,
         }).then(function (response) {
           console.log(`pokemon adicionado`);
-          setRender(1)
+          setRender(Math.random)
           
         })
         .catch(function (error) {
           console.log(error);
         });
+        
         setTimeout(() => {
           setPokemon('');
         }, 500);
 
-      }
 
-  //requisiçao e save das infos dos pokemons
-  
+      }
 
   return (
     <div className="div">
@@ -190,7 +191,6 @@ const App = () => {
             pokeInfo={pokeInfo}
             setPokeInfo={setPokeInfo}
             render={render}
-            
             
           />
         ) : (
