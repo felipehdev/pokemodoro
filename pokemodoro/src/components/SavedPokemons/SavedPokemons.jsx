@@ -16,7 +16,7 @@ const SavedPokemons = ({
 
   // const que salvam os objetos antes de imprimir
   const [toPrint, setToPrint] = useState([]);
-  console.log(toPrint);
+  
 
   // desconecta o user
   function logOut() {
@@ -25,20 +25,23 @@ const SavedPokemons = ({
     window.location.reload();
   }
 
+
+
+
   //IMPRESSAO DOS POKEMONS SALVOS
   // quando essa const existe ela aparece na pagina
   const lPokemons = toPrint.map((pokeObj) => (
     <li className={S.liCtn} key={pokeObj.id}>
+      <span className={S.pokeIdHash}># <span className={S.pokeId}>{pokeObj.id}</span></span>
       <div className={S.spriteBg}>
         <img className={S.pokeImg} src={pokeObj.sprites.front_default} />
       </div>
       <div className={S.pokeInfoCtn}>
-        <span className={S.pokeId}>#{pokeObj.id}</span>
-        <span className={S.pokeName}>{pokeObj.name.toUpperCase()}</span>
+        <span className={S.pokeName}>{pokeObj.name.charAt(0).toUpperCase() + pokeObj.name.slice(1)}</span>
         <div className={S.typeCtn}>
-          <span className={S.pokeType}>{pokeObj.types[0].type.name.toUpperCase()}</span>
+          <span className={`${S.pokeType} btn-${pokeObj.types[0].type.name}` }>{pokeObj.types[0].type.name.charAt(0).toUpperCase() + pokeObj.types[0].type.name.slice(1) }</span>
           {pokeObj.types[1] && (
-            <span className={S.pokeType}>{pokeObj.types[1].type.name.toUpperCase()}</span>
+            <span className={`${S.pokeType} btn-${pokeObj.types[1].type.name}` }>{pokeObj.types[1].type.name.charAt(0).toUpperCase() + pokeObj.types[1].type.name.slice(1)}</span>
           )}
         </div>
       </div>
@@ -51,9 +54,7 @@ const SavedPokemons = ({
     data.pokemons?.map(async (ids) => {
       const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${ids}`);
       const data = await response.json();
-      console.log(data);
       setToPrint((newToPrint) => [...newToPrint, data]);
-      console.log(toPrint);
     });
   }
 
@@ -78,7 +79,7 @@ const SavedPokemons = ({
     <div>
       <div className={S.loggedUserCtn}>
         <div className={S.loggedUserTxt}>
-          Bem vindo: {localStorage.getItem("LoggedUserName")}{" "}
+          Welcome: {localStorage.getItem("LoggedUserName")}{" "}
         </div>
         <button className={S.logOutBtn} onClick={() => logOut()}>
           logOut
@@ -86,7 +87,7 @@ const SavedPokemons = ({
       </div>
 
       <div className={S.savedPokemons}>
-        <span className={S.yourPokesTxt}>Seus pokemons salvos:</span>
+        <span className={S.yourPokesTxt}>You have {toPrint.length} pokemos:</span>
         <ul>{lPokemons ? lPokemons : ""}</ul>
       </div>
     </div>

@@ -25,12 +25,32 @@
   --font-weight-bold: 700;
   --font-weight-xbold: 900;
 
+  --font-size-s: 12px;
   --font-size-r: 16px;
   --font-size-m: 18px;
   --font-size-g: 24px;
   --font-size-gg: 36px;
-}
 
+  --type-color-1: #9BCC50;
+  --type-color-2: #B97FC9;
+  --type-color-3:#FD7D24;
+  --type-color-4:#F366B9;     
+  --type-color-5:#3DC7EF;
+  --type-color-6:#51C4E7;
+  --type-color-7:#4592C4;
+  --type-color-8:#EED535;
+  --type-color-9:#A38C21;
+  --type-color-10:#A4ACAF;
+  --type-color-11:#FDB9E9;
+  --type-color-12:#9EB7B8;
+  --type-color-13:#7B62A3;
+  --type-color-14:#707070;
+  --type-color-15:#F16E57;
+  --type-color-16:#D56723;
+  --type-color-17:#AB9842;
+  --type-color-18:#729F3F;
+
+}
 .div {
   display: flex;
   flex-direction: column;
@@ -82,10 +102,10 @@ h1 {
   justify-content: space-around;
   flex-direction: column;
   width: 200px;
-  height: 80px;
   background: #e7eced;
   box-shadow: inset 0px 4px 0px rgba(0, 0, 0, 0.25);
   border-radius: 7px;
+  padding: 15px 0;
 }
 
 .toDo {
@@ -126,7 +146,6 @@ h1 {
   border-radius: 5px;
 
   font-family: var(--font-family-3);
-  font-size: var(--font-size-gg);
   font-weight: var(--font-weight-xbold);
   color: #e3e2e7;
   margin-top: 1.3rem;
@@ -156,20 +175,133 @@ h1 {
   border-radius: 6px;
 }
 
+.prizeTitle {
+  display: flex;
+  margin: 0 auto;
+  margin-top: 10px;
+  width: fit-content;
+  font-family: var(--font-family-3);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-m);
+  color: var(--color-dark);
+}
+
+.prizeText {
+  display: flex;
+  font-family: var(--font-family-3);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-g);
+  align-items: center;
+  text-align: center;
+  margin-bottom: 0.5rem;
+
+  color: var(--color-dark);
+  text-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
+}
+
+.pokeType {  
+  display: flex;
+  align-items: center;
+  text-align: center;
+  padding: 0.2rem 0.5rem;
+  border-radius: 5px;
+  width: fit-content;
+  margin: 0 auto;
+
+  font-family: var(--font-family-3);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-s);
+  color: var(--color-dark);
+}
+
+.btn-grass {
+  color: var(--color-dark);
+  background-color: var(--type-color-1) ;
+}
+.btn-poison {
+  color: var(--color-light);
+  background-color: var(--type-color-2) ;
+}
+.btn-fire {
+  color: var(--color-light);
+  background-color: var(--type-color-3) ;
+}
+.btn-psychic {
+  color: var(--color-light);
+  background-color: var(--type-color-4) ;
+}
+.btn-flying {
+  color: var(--color-dark);
+  background-color: var(--type-color-5) ;
+}
+.btn-ice {
+  color: var(--color-dark);
+  background-color: var(--type-color-6) ;
+}
+.btn-water {
+  color: var(--color-light);
+  background-color: var(--type-color-7) ;
+}
+
+.btn-electric {
+  color: var(--color-dark);
+  background-color: var(--type-color-8) ;
+}
+.btn-rock {
+  color: var(--color-light);
+  background-color: var(--type-color-9) ;
+}
+.btn-normal {
+  color: var(--color-dark);
+  background-color: var(--type-color-10) ;
+}
+.btn-fairy {  
+  color: var(--color-dark);
+  background-color: var(--type-color-11);
+}
+.btn-steel {
+  color: var(--color-dark);
+  background-color: var(--type-color-12) ;
+}
+.btn-ghost {
+  color: var(--color-light);
+  background-color: var(--type-color-13) ;
+}
+.btn-dark {
+  color: var(--color-light);
+  background-color: var(--type-color-14) ;
+}
+.btn-dragon {
+  color: var(--color-light);
+  background-color: var(--type-color-15) ;
+}
+.btn-fighting {
+  color: var(--color-light);
+  background-color: var(--type-color-16) ;
+}
+.btn-ground {
+  color: var(--color-dark);
+  background-color: var(--type-color-17) ;
+}
+.btn-bug {
+  color: var(--color-light);
+  background-color: var(--type-color-18) ;
+}
+
 .prizeBtn {  
   display: flex;
   align-items: center;
   justify-content: center;
   width: 150px;
   height: 40px;
-  background: #f6f5f8;
-  box-shadow: 0px 4px 0px #c5ccd1;
+  background: #4592C4;
+  box-shadow: 0px 4px 0px #275B81;
   border-radius: 5px;
 
   font-family: var(--font-family-3);
-  font-size: var(--font-size-gg);
+  font-size: var(--font-size-m);
   font-weight: var(--font-weight-xbold);
-  color: #e3e2e7;
-  margin-top: 1.3rem;
-
+  color: #2D73A0;
+  margin-top: 1rem;
+  text-shadow: 0px -1px #275B81, 1px 1px #00000000;
 }

@@ -71,10 +71,28 @@
   max-height: 90px;
 }
 
-.pokeId {
+
+.pokeIdHash {
   display: flex;
+  position: relative;
+  bottom: 10px;
+  min-width: 17px;
   font-family: var(--font-family-3);
   font-weight: var(--font-weight-light);
+  font-size: var(--font-size-s);
+  align-items: center;
+  text-align: center;
+  align-self: center;
+  color: var(--color-light);
+  transform: rotate(270deg);
+}
+
+.pokeId {
+  display: flex;
+  position: relative;
+  min-width: 17px;
+  font-family: var(--font-family-3);
+  font-weight: var(--font-weight-bold);
   font-size: var(--font-size-s);
   align-items: center;
   text-align: center;
@@ -84,13 +102,15 @@
 .pokeName {
   display: flex;
   font-family: var(--font-family-3);
-  font-weight: var(--font-weight-semibold);
+  font-weight: var(--font-weight-medium);
   font-size: var(--font-size-g);
   align-items: center;
   text-align: center;
 
-  color: var(--color-light);
+  color: var(--color-bg);
   text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  margin: 3px;
+  margin-top: 0px;
 }
 
 .spriteBg {
@@ -100,8 +120,9 @@
 }
 
 .pokeImg {
-  width: 100px;
-  height: 100px;
+  width: 85px;
+  height: 85px;
+  margin: 5px;
 }
 
 .typeCtn {
@@ -115,11 +136,86 @@
   align-items: center;
   text-align: center;
   padding: 0.2rem 0.5rem;
-  background: #b97fc9;
   border-radius: 5px;
 
   font-family: var(--font-family-3);
   font-weight: var(--font-weight-medium);
-  font-size: var(--font-size-r);
+  font-size: var(--font-size-s);
+}
+
+.btn-grass {
   color: var(--color-dark);
+  background-color: var(--type-color-1) ;
+}
+.btn-poison {
+  color: var(--color-light);
+  background-color: var(--type-color-2) ;
+}
+.btn-fire {
+  color: var(--color-light);
+  background-color: var(--type-color-3) ;
+}
+.btn-psychic {
+  color: var(--color-light);
+  background-color: var(--type-color-4) ;
+}
+.btn-flying {
+  color: var(--color-dark);
+  background-color: var(--type-color-5) ;
+}
+.btn-ice {
+  color: var(--color-dark);
+  background-color: var(--type-color-6) ;
+}
+.btn-water {
+  color: var(--color-light);
+  background-color: var(--type-color-7) ;
+}
+
+.btn-eletric {
+  color: var(--color-dark);
+  background-color: var(--type-color-8) ;
+}
+.btn-rock {
+  color: var(--color-light);
+  background-color: var(--type-color-9) ;
+}
+
+.btn-normal {
+  color: var(--color-dark);
+  background-color: var(--type-color-10) ;
+}
+
+.btn-fairy {  
+  color: var(--color-dark);
+  background-color: var(--type-color-11);
+}
+
+.btn-steel {
+  color: var(--color-dark);
+  background-color: var(--type-color-12) ;
+}
+.btn-ghost {
+  color: var(--color-light);
+  background-color: var(--type-color-13) ;
+}
+.btn-dark {
+  color: var(--color-light);
+  background-color: var(--type-color-14) ;
+}
+.btn-dragon {
+  color: var(--color-light);
+  background-color: var(--type-color-15) ;
+}
+.btn-fighting {
+  color: var(--color-light);
+  background-color: var(--type-color-16) ;
+}
+.btn-ground {
+  color: var(--color-dark);
+  background-color: var(--type-color-17) ;
+}
+.btn-bug {
+  color: var(--color-light);
+  background-color: var(--type-color-18) ;
 }

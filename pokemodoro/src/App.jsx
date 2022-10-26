@@ -9,7 +9,7 @@ import axios from "axios";
 const App = () => {
   // 01. CONTROLE DO RELOGIO
   //gestao do tempo (controller)
-  const tFocus = 1;
+  const tFocus = 2;
   const tBreak = 2;
   const [timer, setTimer] = useState(tFocus);
 
@@ -24,7 +24,7 @@ const App = () => {
   //gestao da atividade (controller)
   const dInit = "CLICK TO START";
   const dFocus = "TIME TO FOCUS";
-  const dBreak = "TIME TO TAKE A BREAK";
+  const dBreak = "TAKE A BREAK";
   const [toDo, setToDo] = useState(dInit);
 
   //gestao do texto do botao
@@ -76,6 +76,61 @@ const App = () => {
   }, [btnTxt]);
 
   //gerenciador do botao, onclick
+
+  //cores dos botoes 
+
+  const [ btnTheme, setBtnTheme ] = useState({
+    background: '#9BCC50',
+    boxShadow: "0px 4px 0px #5A8715",
+    color: '#8AAA59',
+    fontSize: '18px'          
+  })
+
+  const [ renderBtn, setRenderBtn ] = useState(1)
+
+  useEffect(() => {
+    function setBtnColor() {
+
+      
+      if (btnTxt === start) {  
+        setBtnTheme(
+          {
+            background: '#9BCC50',
+            boxShadow: "0px 4px 0px #5A8715",
+            color: '#8AAA59',
+            fontSize: '18px'          
+          });
+          setRenderBtn(prevCount => prevCount + 1)
+        
+      }
+      else if (btnTxt === pause) {        
+        setBtnTheme(
+          {
+            background: '#F16E57',
+            boxShadow: "0px 4px 0px #B0351F",
+            color: '#D44B32',
+            fontSize: '18px'          
+          });
+          setRenderBtn(prevCount => prevCount + 1)
+      }
+      else if (btnTxt === getPokemon) {
+        setBtnTheme(
+          {
+            background: '#FD7D24',
+            boxShadow: "0px 4px 0px #9F6035",
+            color: '#DC6C1E',
+            fontSize: '18px'          
+          });
+          setRenderBtn(prevCount => prevCount + 1)
+      }      
+    };
+  
+    return () => {
+      setBtnColor()
+    }
+  }, [renderBtn])
+
+
   function timerBtn() {
     //se START durante o INTERVALO
     if (btnTxt === start && toDo === dBreak) {
@@ -84,21 +139,20 @@ const App = () => {
       console.log(on);
       setButtonTxt(pause);
       //se START ( aqui inicia as ações)
-    } else if (btnTxt === start) {
-      console.log(on);
+    } else if (btnTxt === start) {      
       setOn(true);
       setToDo(dFocus);
       setTimer(timer - 1);
-      console.log(on);
       setButtonTxt(pause);
       //se PAUSE
-    } else if (btnTxt === pause) {
+    } else if (btnTxt === pause) {      
       console.log(on);
       setOn(false);
       setButtonTxt(start);
       console.log(on);
       //se POKEMON
-    } else if (btnTxt === getPokemon) {
+    } else if (btnTxt === getPokemon) {      
+      
       setTimeout(() => {
         setPokemon(resp);
       }, 500);
@@ -107,6 +161,7 @@ const App = () => {
       setTimer(tBreak);
       setButtonTxt(start);
       console.log(pokemon);
+    
     }
   }
 
@@ -116,11 +171,9 @@ const App = () => {
   const [requestedData, setRequestedData] = useState(
     "valor inicial requested data"
   );
-  console.log(requestedData);
 
   const [pokeInfo, setPokeInfo] = useState("");
-  console.log(pokeInfo);
-  console.log(pokeInfo.pokemons);
+
 
   //state que causa o render de componentes
   const [render, setRender] = useState(1);
@@ -145,12 +198,12 @@ const App = () => {
     setTimeout(() => {
       setPokemon("");
     }, 500);
-  }
+  } 
 
   return (
     <div className="div">
       <nav>
-        <h1>pokemodoro</h1>
+        <h1>Pokemodoro</h1>
       </nav>
       <div className="timer">
         <div className="screen">
@@ -161,7 +214,7 @@ const App = () => {
             <span>{seconds}</span>
           </div>
         </div>
-        <button className="timerBtn" onClick={() => timerBtn()}>
+        <button style={{background: btnTheme.background , color: btnTheme.color , boxShadow: btnTheme.boxShadow , fontSize: btnTheme.fontSize}} className="timerBtn" onClick={() => timerBtn()}>
           {btnTxt}
         </button>
       </div>
@@ -170,16 +223,17 @@ const App = () => {
         {pokemon ? (
           <div className="prizeDiv">
             <div>
-              <img src={pokemon.sprites.front_default} alt="" />
-              <div>
+            <div className="prizeTitle">You got the</div>
+              <img src={pokemon.sprites.front_default} alt="" />              
+              <div className="prizeText">
                 <span>{pokemon.order}</span>
                 <span> - </span>
-                <span>{pokemon.name}</span>
+                <span> {pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}</span>
               </div>
-              <div>{pokemon.types[0].type.name}</div>
+              <div className={`pokeType btn-${pokemon.types[0].type.name}` } >{pokemon.types[0].type.name.toUpperCase()}</div>
             </div>
             <button className="prizeBtn" onClick={() => pokeSaver()}>
-              Save
+              SAVE
             </button>
           </div>
         ) : (
