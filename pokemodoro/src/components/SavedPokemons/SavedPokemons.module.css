@@ -71,7 +71,6 @@
   max-height: 90px;
 }
 
-
 .pokeIdHash {
   display: flex;
   position: relative;
@@ -114,15 +113,18 @@
 }
 
 .spriteBg {
-  background: var(--color-light);
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-light);
   border: 1px solid var(--color-dark);
   border-radius: 4px 0px 0px 4px;
+  height: 90px;
+  width: 90px;
 }
 
 .pokeImg {
-  width: 85px;
-  height: 85px;
-  margin: 5px;
+  width: 92px;
+  height: 92px;
 }
 
 .typeCtn {
@@ -145,77 +147,77 @@
 
 .btn-grass {
   color: var(--color-dark);
-  background-color: var(--type-color-1) ;
+  background-color: var(--type-color-1);
 }
 .btn-poison {
   color: var(--color-light);
-  background-color: var(--type-color-2) ;
+  background-color: var(--type-color-2);
 }
 .btn-fire {
   color: var(--color-light);
-  background-color: var(--type-color-3) ;
+  background-color: var(--type-color-3);
 }
 .btn-psychic {
   color: var(--color-light);
-  background-color: var(--type-color-4) ;
+  background-color: var(--type-color-4);
 }
 .btn-flying {
   color: var(--color-dark);
-  background-color: var(--type-color-5) ;
+  background-color: var(--type-color-5);
 }
 .btn-ice {
   color: var(--color-dark);
-  background-color: var(--type-color-6) ;
+  background-color: var(--type-color-6);
 }
 .btn-water {
   color: var(--color-light);
-  background-color: var(--type-color-7) ;
+  background-color: var(--type-color-7);
 }
 
 .btn-eletric {
   color: var(--color-dark);
-  background-color: var(--type-color-8) ;
+  background-color: var(--type-color-8);
 }
 .btn-rock {
   color: var(--color-light);
-  background-color: var(--type-color-9) ;
+  background-color: var(--type-color-9);
 }
 
 .btn-normal {
   color: var(--color-dark);
-  background-color: var(--type-color-10) ;
+  background-color: var(--type-color-10);
 }
 
-.btn-fairy {  
+.btn-fairy {
   color: var(--color-dark);
   background-color: var(--type-color-11);
 }
 
 .btn-steel {
   color: var(--color-dark);
-  background-color: var(--type-color-12) ;
+  background-color: var(--type-color-12);
 }
 .btn-ghost {
   color: var(--color-light);
-  background-color: var(--type-color-13) ;
+  background-color: var(--type-color-13);
 }
 .btn-dark {
   color: var(--color-light);
-  background-color: var(--type-color-14) ;
+  background-color: var(--type-color-14);
 }
 .btn-dragon {
   color: var(--color-light);
-  background-color: var(--type-color-15) ;
+  background-color: var(--type-color-15);
 }
 .btn-fighting {
   color: var(--color-light);
-  background-color: var(--type-color-16) ;
+  background-color: var(--type-color-16);
 }
 .btn-ground {
   color: var(--color-dark);
-  background-color: var(--type-color-17) ;
+  background-color: var(--type-color-17);
 }
 .btn-bug {
   color: var(--color-light);
-  background-color: var(--type-color-18) ;
+  background-color: var(--type-color-18);
 }

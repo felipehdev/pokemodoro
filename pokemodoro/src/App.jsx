@@ -9,8 +9,8 @@ import axios from "axios";
 const App = () => {
   // 01. CONTROLE DO RELOGIO
   //gestao do tempo (controller)
-  const tFocus = 2;
-  const tBreak = 2;
+  const tFocus = 10;
+  const tBreak = 5;
   const [timer, setTimer] = useState(tFocus);
 
   const minutes = Math.floor(timer / 60)
@@ -33,6 +33,15 @@ const App = () => {
   const getPokemon = "GET POKEMON";
   const [btnTxt, setButtonTxt] = useState(start);
 
+  //gestao das dos botoes 
+
+  const [ btnTheme, setBtnTheme ] = useState({
+    background: '#9BCC50',
+    boxShadow: "0px 4px 0px #5A8715",
+    color: '#8AAA59',
+    fontSize: '18px'          
+  })
+
   //timer controller
   useEffect(() => {
     if (timer === 0 && toDo === dBreak && on === true) {
@@ -42,6 +51,12 @@ const App = () => {
       setTimer(tFocus);
     } else if (timer === 0) {
       setOn(false);
+      setBtnTheme({
+        background: '#FD7D24',
+        boxShadow: "0px 4px 0px #9F6035",
+        color: '#DC6C1E',
+        fontSize: '18px'          
+      })
       setButtonTxt(getPokemon);
     } else if (on === true) {
       setTimeout(() => {
@@ -75,81 +90,58 @@ const App = () => {
     }
   }, [btnTxt]);
 
-  //gerenciador do botao, onclick
-
-  //cores dos botoes 
-
-  const [ btnTheme, setBtnTheme ] = useState({
-    background: '#9BCC50',
-    boxShadow: "0px 4px 0px #5A8715",
-    color: '#8AAA59',
-    fontSize: '18px'          
-  })
-
-  const [ renderBtn, setRenderBtn ] = useState(1)
-
-  useEffect(() => {
-    function setBtnColor() {
-
-      
-      if (btnTxt === start) {  
-        setBtnTheme(
-          {
-            background: '#9BCC50',
-            boxShadow: "0px 4px 0px #5A8715",
-            color: '#8AAA59',
-            fontSize: '18px'          
-          });
-          setRenderBtn(prevCount => prevCount + 1)
-        
-      }
-      else if (btnTxt === pause) {        
-        setBtnTheme(
-          {
-            background: '#F16E57',
-            boxShadow: "0px 4px 0px #B0351F",
-            color: '#D44B32',
-            fontSize: '18px'          
-          });
-          setRenderBtn(prevCount => prevCount + 1)
-      }
-      else if (btnTxt === getPokemon) {
-        setBtnTheme(
-          {
-            background: '#FD7D24',
-            boxShadow: "0px 4px 0px #9F6035",
-            color: '#DC6C1E',
-            fontSize: '18px'          
-          });
-          setRenderBtn(prevCount => prevCount + 1)
-      }      
-    };
   
-    return () => {
-      setBtnColor()
-    }
-  }, [renderBtn])
 
+  
 
+  //gerenciador do botao, onclick
   function timerBtn() {
+    
     //se START durante o INTERVALO
     if (btnTxt === start && toDo === dBreak) {
       setOn(true);
       setTimer(timer - 1);
       console.log(on);
       setButtonTxt(pause);
+
       //se START ( aqui inicia as ações)
+      setBtnTheme(
+        {
+          background: '#FD7D24',
+          boxShadow: "0px 4px 0px #9F6035",
+          color: '#DC6C1E',
+          fontSize: '18px'          
+        });
+        console.log('ativou render');
+
+
     } else if (btnTxt === start) {      
       setOn(true);
       setToDo(dFocus);
       setTimer(timer - 1);
+      setBtnTheme(
+        {
+          background: '#F16E57',
+          boxShadow: "0px 4px 0px #B0351F",
+          color: '#D44B32',
+          fontSize: '18px'          
+        });
       setButtonTxt(pause);
+
       //se PAUSE
     } else if (btnTxt === pause) {      
       console.log(on);
       setOn(false);
+      setBtnTheme(
+        {
+          background: '#9BCC50',
+          boxShadow: "0px 4px 0px #5A8715",
+          color: '#8AAA59',
+          fontSize: '18px'          
+        });
       setButtonTxt(start);
       console.log(on);
+
       //se POKEMON
     } else if (btnTxt === getPokemon) {      
       
@@ -159,6 +151,14 @@ const App = () => {
 
       setToDo(dBreak);
       setTimer(tBreak);
+      setBtnTheme(
+        {
+          background: '#9BCC50',
+          boxShadow: "0px 4px 0px #5A8715",
+          color: '#8AAA59',
+          fontSize: '18px'          
+        });
+      console.log('ativou render');
       setButtonTxt(start);
       console.log(pokemon);
     
