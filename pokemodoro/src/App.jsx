@@ -9,8 +9,8 @@ import axios from "axios";
 const App = () => {
   // 01. CONTROLE DO RELOGIO
   //gestao do tempo (controller)
-  const tFocus = 1;
-  const tBreak = 2;
+  const tFocus = 10;
+  const tBreak = 5;
   const [timer, setTimer] = useState(tFocus);
 
   const minutes = Math.floor(timer / 60)
@@ -24,7 +24,7 @@ const App = () => {
   //gestao da atividade (controller)
   const dInit = "CLICK TO START";
   const dFocus = "TIME TO FOCUS";
-  const dBreak = "TIME TO TAKE A BREAK";
+  const dBreak = "TAKE A BREAK";
   const [toDo, setToDo] = useState(dInit);
 
   //gestao do texto do botao
@@ -32,6 +32,15 @@ const App = () => {
   const pause = "PAUSE";
   const getPokemon = "GET POKEMON";
   const [btnTxt, setButtonTxt] = useState(start);
+
+  //gestao das dos botoes 
+
+  const [ btnTheme, setBtnTheme ] = useState({
+    background: '#9BCC50',
+    boxShadow: "0px 4px 0px #5A8715",
+    color: '#8AAA59',
+    fontSize: '18px'          
+  })
 
   //timer controller
   useEffect(() => {
@@ -42,6 +51,12 @@ const App = () => {
       setTimer(tFocus);
     } else if (timer === 0) {
       setOn(false);
+      setBtnTheme({
+        background: '#FD7D24',
+        boxShadow: "0px 4px 0px #9F6035",
+        color: '#DC6C1E',
+        fontSize: '18px'          
+      })
       setButtonTxt(getPokemon);
     } else if (on === true) {
       setTimeout(() => {
@@ -75,38 +90,78 @@ const App = () => {
     }
   }, [btnTxt]);
 
+  
+
+  
+
   //gerenciador do botao, onclick
   function timerBtn() {
+    
     //se START durante o INTERVALO
     if (btnTxt === start && toDo === dBreak) {
       setOn(true);
       setTimer(timer - 1);
       console.log(on);
       setButtonTxt(pause);
+
       //se START ( aqui inicia as ações)
-    } else if (btnTxt === start) {
-      console.log(on);
+      setBtnTheme(
+        {
+          background: '#FD7D24',
+          boxShadow: "0px 4px 0px #9F6035",
+          color: '#DC6C1E',
+          fontSize: '18px'          
+        });
+        console.log('ativou render');
+
+
+    } else if (btnTxt === start) {      
       setOn(true);
       setToDo(dFocus);
       setTimer(timer - 1);
-      console.log(on);
+      setBtnTheme(
+        {
+          background: '#F16E57',
+          boxShadow: "0px 4px 0px #B0351F",
+          color: '#D44B32',
+          fontSize: '18px'          
+        });
       setButtonTxt(pause);
+
       //se PAUSE
-    } else if (btnTxt === pause) {
+    } else if (btnTxt === pause) {      
       console.log(on);
       setOn(false);
+      setBtnTheme(
+        {
+          background: '#9BCC50',
+          boxShadow: "0px 4px 0px #5A8715",
+          color: '#8AAA59',
+          fontSize: '18px'          
+        });
       setButtonTxt(start);
       console.log(on);
+
       //se POKEMON
-    } else if (btnTxt === getPokemon) {
+    } else if (btnTxt === getPokemon) {      
+      
       setTimeout(() => {
         setPokemon(resp);
       }, 500);
 
       setToDo(dBreak);
       setTimer(tBreak);
+      setBtnTheme(
+        {
+          background: '#9BCC50',
+          boxShadow: "0px 4px 0px #5A8715",
+          color: '#8AAA59',
+          fontSize: '18px'          
+        });
+      console.log('ativou render');
       setButtonTxt(start);
       console.log(pokemon);
+    
     }
   }
 
@@ -116,68 +171,70 @@ const App = () => {
   const [requestedData, setRequestedData] = useState(
     "valor inicial requested data"
   );
-  console.log(requestedData);
 
   const [pokeInfo, setPokeInfo] = useState("");
-  console.log(pokeInfo);
-  console.log(pokeInfo.pokemons);
 
 
   //state que causa o render de componentes
-  const [ render, setRender ] = useState(1)
+  const [render, setRender] = useState(1);
 
-  //pokersaver chamado no click do botao salvar  
+  //pokersaver chamado no click do botao salvar
   function pokeSaver() {
+    const pokeArr = [pokemon.id, ...pokeInfo.pokemons];
 
-    const pokeArr = [ pokemon.id, ...pokeInfo.pokemons ];
+    const userId = localStorage.getItem("LoggedUserId");
+    axios
+      .put(`https://pokemodoro-api.herokuapp.com/updatePokemons/${userId}`, {
+        pokemons: pokeArr,
+      })
+      .then(function (response) {
+        console.log(`pokemon adicionado`);
+        setRender(Math.random);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
 
-      const userId = localStorage.getItem("LoggedUserId") 
-      axios.put(
-        `https://pokemodoro-api.herokuapp.com/updatePokemons/${userId}`,
-         {
-         pokemons: pokeArr,
-        }).then(function (response) {
-          console.log(`pokemon adicionado`);
-          setRender(Math.random)
-          
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-        
-        setTimeout(() => {
-          setPokemon('');
-        }, 500);
-
-
-      }
+    setTimeout(() => {
+      setPokemon("");
+    }, 500);
+  } 
 
   return (
     <div className="div">
+      <nav>
+        <h1>Pokemodoro</h1>
+      </nav>
       <div className="timer">
-        <h1>pokemodoro</h1>
-        <span>{toDo}</span>
-        <div>
-          <span>{minutes}</span>
-          <span> : </span>
-          <span>{seconds}</span>
+        <div className="screen">
+          <span className="toDo">{toDo}</span>
+          <div className="minutes">
+            <span>{minutes}</span>
+            <span>:</span>
+            <span>{seconds}</span>
+          </div>
         </div>
-        <button onClick={() => timerBtn()}>{btnTxt}</button>
+        <button style={{background: btnTheme.background , color: btnTheme.color , boxShadow: btnTheme.boxShadow , fontSize: btnTheme.fontSize}} className="timerBtn" onClick={() => timerBtn()}>
+          {btnTxt}
+        </button>
       </div>
 
       <div>
         {pokemon ? (
           <div className="prizeDiv">
             <div>
-              <img src={pokemon.sprites.front_default} alt="" />
-              <div>
+            <div className="prizeTitle">You got the</div>
+              <img src={pokemon.sprites.front_default} alt="" />              
+              <div className="prizeText">
                 <span>{pokemon.order}</span>
                 <span> - </span>
-                <span>{pokemon.name}</span>
+                <span> {pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}</span>
               </div>
-              <div>{pokemon.types[0].type.name}</div>
+              <div className={`pokeType btn-${pokemon.types[0].type.name}` } >{pokemon.types[0].type.name.toUpperCase()}</div>
             </div>
-            <button onClick={() => pokeSaver()}>Save</button>
+            <button className="prizeBtn" onClick={() => pokeSaver()}>
+              SAVE
+            </button>
           </div>
         ) : (
           ""
@@ -191,7 +248,6 @@ const App = () => {
             pokeInfo={pokeInfo}
             setPokeInfo={setPokeInfo}
             render={render}
-            
           />
         ) : (
           <Login
@@ -203,7 +259,6 @@ const App = () => {
           />
         )}
       </div>
-      <br />
 
       <h3>🙅‍♂️ nao tem como</h3>
       <h2> felipr.com</h2>
