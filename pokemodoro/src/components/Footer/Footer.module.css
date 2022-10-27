@@ -1,0 +1,44 @@
+.footerCtn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  width: 100vw;
+  padding: 20px 10px;
+}
+
+.footerTt {
+  font-family: var(--font-family-3);
+  font-weight: var(--font-weight-xbold);
+  font-size: var(--font-size-g);
+  line-height: 22px;
+  letter-spacing: 0.06em;
+
+  color: var(--color-dark);
+}
+
+.footerIntro {
+  font-family: var(--font-family-3);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-s);
+  line-height: 22px;
+  text-align: left;
+  letter-spacing: 0.03em;
+
+  color: var(--color-dark);
+}
+
+.socialsCtn {
+    display: flex;
+    gap: 20px;
+    padding: 10px;
+
+}
+
+.socialsIcos {
+    width: 20px;
+    cursor: pointer;
+    
+
+}

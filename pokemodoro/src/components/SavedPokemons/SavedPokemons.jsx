@@ -83,7 +83,8 @@ const SavedPokemons = ({
   // funçao que re renderiza a página
 
   return (
-    <div>
+    <div className={S.savedCtn}>
+      <div>
       <div className={S.loggedUserCtn}>
         <div className={S.loggedUserTxt}>
           Welcome: {localStorage.getItem("LoggedUserName")}{" "}
@@ -98,6 +99,7 @@ const SavedPokemons = ({
           You have {toPrint.length} pokemos:
         </span>
         <ul>{lPokemons ? lPokemons : ""}</ul>
+      </div>
       </div>
     </div>
   );

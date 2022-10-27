@@ -5,8 +5,6 @@
   padding: 0;
   border: 0;
   box-sizing: border-box;
-  max-width: 500px;
-
   text-align: center;
 }
 
@@ -51,12 +49,9 @@
   --type-color-18:#729F3F;
 
 }
-.div {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  min-height: 300px;
+.app {
+  min-width: 300px;
+  min-height: 100vh;  
   background-color: var(--color-bg);
 }
 
@@ -79,6 +74,18 @@ h1 {
   text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
+
+.timerCtn {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--color-bg);
+  min-width: 300px;
+  min-height: 100vh;
+
+}
+
 .timer {
   display: flex;
   flex-direction: column;
@@ -93,8 +100,9 @@ h1 {
   background: #232323;
 
   padding: 1.3rem;
-  margin: 1.3rem;
+  margin: 1.3rem auto;
 }
+
 
 .screen {
   display: flex;
@@ -141,14 +149,19 @@ h1 {
   justify-content: center;
   width: 150px;
   height: 40px;
-  background: #f6f5f8;
-  box-shadow: 0px 4px 0px #c5ccd1;
+  background: #F16E57;
+  box-shadow: 0px 4px 0px #B0351F;
   border-radius: 5px;
+  cursor: pointer;
 
   font-family: var(--font-family-3);
   font-weight: var(--font-weight-xbold);
-  color: #e3e2e7;
+  color: #D44B32;
   margin-top: 1.3rem;
+}
+
+.timerBtn:active {
+  transform: translateY(2px);
 }
 
 .prizeDiv {
@@ -162,13 +175,12 @@ h1 {
   margin-bottom: 10px;
   padding: 1.3rem;
 
-  position: absolute;
-  width: 300px;
+  position: absolute;  
   left: 0; 
   right: 0; 
   margin-left: auto; 
   margin-right: auto; 
-  top: 80px;
+  top: 150px;
   box-shadow: 0px 2px 7px 1px var(--color-dark);
 
   background: #f3f3f3;
@@ -305,3 +317,9 @@ h1 {
   margin-top: 1rem;
   text-shadow: 0px -1px #275B81, 1px 1px #00000000;
 }
+
+.prizeBtn:active {
+  box-shadow: 0px 2px 0px #275B81;
+  transform: translateY(2px);
+} 
+
