@@ -1,3 +1,11 @@
+.savedCtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 0 auto;
+}
+
 .loggedUserCtn {
   display: flex;
   gap: 1.3rem;
@@ -21,16 +29,22 @@
   align-items: center;
   justify-content: center;
   height: 20px;
-  background: #e71620;
-  box-shadow: 0px 4px 0px #d4979a;
+  background: #FD7D24;
+  box-shadow: 0px 4px 0px #D56723;
   border-radius: 5px;
   padding: 0 0.7em;
+  cursor: pointer;
 
   font-family: var(--font-family-3);
   font-size: var(--font-size-s);
-  font-weight: var(--font-weight-xbold);
-  color: #e3e2e7;
+  font-weight: var(--font-weight-bold);
+  color: #d45607;
 }
+
+.logOutBtn:active {
+  box-shadow: 0px 2px 0px #D56723;
+  transform: translateY(2px);
+} 
 
 .savedPokemons {
   width: 310px;

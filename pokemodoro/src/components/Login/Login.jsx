@@ -2,14 +2,19 @@ import React from "react";
 import { useState } from "react";
 import sha256 from "js-sha256";
 import axios from "axios";
-import S from './Login.module.css'
+import S from "./Login.module.css";
 
-
-const Login = ({setUser, setLogged,setRequestedData, user, requestedData}) => {
+const Login = ({
+  setUser,
+  setLogged,
+  setRequestedData,
+  user,
+  requestedData,
+}) => {
   //user inserido pelo usuario
   console.log(user);
 
-  //password inserido pelo usuario  
+  //password inserido pelo usuario
   const [password, setPassword] = useState("");
   console.log(password);
 
@@ -17,7 +22,7 @@ const Login = ({setUser, setLogged,setRequestedData, user, requestedData}) => {
   //create user (chamada no click register) (importar pra outro documento)
   const createUser = () =>
     axios
-      .post(`https://pokemodoro-api.herokuapp.com/user/`, {
+      .post(`https://web-production-be3b.up.railway.app/user`, {
         name: user,
         password: sha256(password),
       })
@@ -34,23 +39,23 @@ const Login = ({setUser, setLogged,setRequestedData, user, requestedData}) => {
     createUser();
   }
 
-  // LOGIN DE USUARIO  
-  
-  const password256 = sha256(password); 
+  // LOGIN DE USUARIO
+
+  const password256 = sha256(password);
 
   //get user (usado no login)
   async function reqUser() {
     console.log(user);
     const response = await axios.get(
-      `https://pokemodoro-api.herokuapp.com/user/${user}`
+      `https://web-production-be3b.up.railway.app/user/${user}`
     );
     setRequestedData(response.data);
     console.log(requestedData);
 
     if (response.data.password === password256) {
       setLogged(true);
-      localStorage.setItem("LoggedUserId", response.data._id)
-      localStorage.setItem("LoggedUserName", response.data.name)
+      localStorage.setItem("LoggedUserId", response.data._id);
+      localStorage.setItem("LoggedUserName", response.data.name);
       console.log(`usuario logou`);
       console.log(response.data);
     } else {
@@ -66,28 +71,34 @@ const Login = ({setUser, setLogged,setRequestedData, user, requestedData}) => {
 
   return (
     <div>
-      
       <form className={S.form} action="" method="get">
-      <h4>login or register</h4>
-      <h5>to save your pokemons</h5>
+        <div className={S.title}>
+          <h4>login or register</h4>
+          <h5>to save your pokemons</h5>
+        </div>
+        <div className={S.inputsCtn}>
         <input
+          className={S.textInput}
           type="text"
-          placeholder="user"
+          placeholder="username"
           onChange={(e) => setUser(e.target.value)}
           name="user"
           id="user"
         />
         <input
+          className={S.textInput}
           type="password"
           placeholder="password"
           onChange={(e) => setPassword(e.target.value)}
           name="password"
           id="password"
         />
-        <input type="submit" value="register" onClick={registerOnClick} />
-        <input type="submit" value="login" onClick={loginOnClick} />        
+        </div>
+        <div className={S.buttonsCtn}>
+          <input className={S.registerBtn} type="submit" value="Register" onClick={registerOnClick} />
+          <input className={S.loginBtn} type="submit" value="Login" onClick={loginOnClick} />
+        </div>
       </form>
-      
     </div>
   );
 };
