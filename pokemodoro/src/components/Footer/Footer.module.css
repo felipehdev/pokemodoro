@@ -3,15 +3,13 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
-  width: 100vw;
-  padding: 20px 10px;
+  padding: 20px 0px;
 }
 
 .footerTt {
   font-family: var(--font-family-3);
   font-weight: var(--font-weight-xbold);
-  font-size: var(--font-size-g);
+  font-size: var(--font-size-m);
   line-height: 22px;
   letter-spacing: 0.06em;
 

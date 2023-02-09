@@ -3,7 +3,7 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  width: 100vw;
+  margin: 0 auto;
 }
 
 .loggedUserCtn {
@@ -37,12 +37,12 @@
 
   font-family: var(--font-family-3);
   font-size: var(--font-size-s);
-  font-weight: var(--font-weight-xbold);
-  color: var(--color-light);
+  font-weight: var(--font-weight-bold);
+  color: #d45607;
 }
 
 .logOutBtn:active {
-  box-shadow: 0px 2px 0px #d4979a;
+  box-shadow: 0px 2px 0px #D56723;
   transform: translateY(2px);
 } 
 

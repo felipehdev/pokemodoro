@@ -27,7 +27,7 @@ const SavedPokemons = ({
   //IMPRESSAO DOS POKEMONS SALVOS
   // quando essa const existe ela aparece na pagina
   const lPokemons = toPrint.map((pokeObj) => (
-    <li className={S.liCtn} key={pokeObj.id}>
+    <li className={S.liCtn} key={pokeObj.id + Math.random()}>
       <span className={S.pokeIdHash}>
       <span className={S.pokeId}>#{pokeObj.id}</span>
       </span>
@@ -69,7 +69,7 @@ const SavedPokemons = ({
   useEffect(() => {
     async function reqUser() {
       const response = await axios.get(
-        `https://pokemodoro-api.herokuapp.com/userId/${lSUserId}`
+        `https://web-production-be3b.up.railway.app/userId/${lSUserId}`
       );
       setPokeInfo(response.data);
       setToPrint([]);

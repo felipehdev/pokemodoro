@@ -6,12 +6,13 @@ import Login from "./components/Login/Login";
 import SavedPokemons from "./components/SavedPokemons/SavedPokemons";
 import axios from "axios";
 import Footer from "./components/Footer/Footer";
+import { Helmet } from "react-helmet";
 
 const App = () => {
   // 01. CONTROLE DO RELOGIO
   //gestao do tempo (controller)
-  const tFocus = 2;
-  const tBreak = 2;
+  const tFocus = 25 * 60;
+  const tBreak = 5 * 60;
   const [timer, setTimer] = useState(tFocus);
 
   const minutes = Math.floor(timer / 60)
@@ -96,9 +97,9 @@ const App = () => {
     //se START durante o INTERVALO
     if (btnTxt === start && toDo === dBreak) {
       setOn(true);
-      setTimer(timer - 1);
       console.log(on);
       setButtonTxt(pause);
+      setTimer(timer - 1);
 
       setBtnTheme({
         background: "#FD7D24",
@@ -172,7 +173,7 @@ const App = () => {
 
     const userId = localStorage.getItem("LoggedUserId");
     axios
-      .put(`https://pokemodoro-api.herokuapp.com/updatePokemons/${userId}`, {
+      .put(`https://web-production-be3b.up.railway.app/${userId}`, {
         pokemons: pokeArr,
       })
       .then(function (response) {
@@ -190,81 +191,107 @@ const App = () => {
 
   return (
     <div className="app">
-      <nav>
-        <h1>Pokemodoro</h1>
-      </nav>
-      <div>
-        <div className="timer">
-          <div className="screen">
-            <span className="toDo">{toDo}</span>
-            <div className="minutes">
-              <span>{minutes}</span>
-              <span>:</span>
-              <span>{seconds}</span>
-            </div>
-          </div>
-          <button
-            id="timerBtn"
-            className="timerBtn"
-            style={{
-              backgroundColor: btnTheme.background,
-              color: btnTheme.color,
-              boxShadow: btnTheme.boxShadow,
-              fontSize: btnTheme.fontSize,
-            }}
-            onClick={() => timerBtn()}
-          >
-            {btnTxt}
-          </button>
-        </div>
-      </div>
 
-      <div>
-        {pokemon ? (
-          <div className="prizeDiv">
-            <div>
-              <div className="prizeTitle">You got the</div>
-              <img src={pokemon.sprites.front_default} alt="" />
-              <div className="prizeText">
-                <span>{pokemon.order}</span>
-                <span> - </span>
-                <span>
-                  {" "}
-                  {pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}
-                </span>
-              </div>
-              <div className={`pokeType btn-${pokemon.types[0].type.name}`}>
-                {pokemon.types[0].type.name.toUpperCase()}
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>{minutes}:{seconds} - Pokemodoro </title>
+        <link rel="canonical" href="https://cdn-icons-png.flaticon.com/128/5379/5379249.png" />
+      </Helmet>
+
+      <div className="ctn">
+        <nav className="navbar">
+          <h1>Pokemodoro</h1>
+        </nav>
+        <div>
+          <div className="timer">
+            <div className="screen">
+              <span className="toDo">{toDo}</span>
+              <div className="minutes">
+                <span>{minutes}</span>
+                <span>:</span>
+                <span>{seconds}</span>
               </div>
             </div>
-            <button className="prizeBtn" onClick={() => pokeSaver()}>
-              SAVE
+            <button
+              id="timerBtn"
+              className="timerBtn"
+              style={{
+                backgroundColor: btnTheme.background,
+                color: btnTheme.color,
+                boxShadow: btnTheme.boxShadow,
+                fontSize: btnTheme.fontSize,
+              }}
+              onClick={() => timerBtn()}
+            >
+              {btnTxt}
             </button>
           </div>
-        ) : (
-          ""
-        )}
+        </div>
+
+        <div>
+          {pokemon ? (
+            <div className="prizeDiv">
+              <div>
+                <div className="prizeTitle">You got the</div>
+                {pokemon.id < 650 ? (
+                  <div className="prizeImgCtn">
+                    {" "}
+                    <img
+                      className="prizeImg"
+                      src={
+                        pokemon.sprites.versions["generation-v"]["black-white"]
+                          .animated.front_default
+                      }
+                      alt=""
+                    />
+                  </div>
+                ) : (
+                  <div className="prizeImgCtn">
+                    {" "}
+                    <img
+                      className="prizeImg"
+                      src={pokemon.sprites.front_default}
+                      alt=""
+                    />
+                  </div>
+                )}
+
+                <div className="prizeText">
+                  {pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}
+                </div>
+                <div className={`pokeType btn-${pokemon.types[0].type.name}`}>
+                  {pokemon.types[0].type.name.toUpperCase()}
+                </div>
+              </div>
+              <button className="prizeBtn" onClick={() => pokeSaver()}>
+                SAVE
+              </button>
+            </div>
+          ) : (
+            ""
+          )}
+        </div>
+        <div>
+          {localStorage.getItem("LoggedUserName") ? (
+            <SavedPokemons
+              requestedData={requestedData}
+              setRequestedData={setRequestedData}
+              pokeInfo={pokeInfo}
+              setPokeInfo={setPokeInfo}
+              render={render}
+            />
+          ) : (
+            <Login
+              setUser={setUser}
+              setLogged={setLogged}
+              setRequestedData={setRequestedData}
+              user={user}
+              requestedData={requestedData}
+            />
+          )}
+        </div>
       </div>
-      <div>
-        {localStorage.getItem("LoggedUserName") ? (
-          <SavedPokemons
-            requestedData={requestedData}
-            setRequestedData={setRequestedData}
-            pokeInfo={pokeInfo}
-            setPokeInfo={setPokeInfo}
-            render={render}
-          />
-        ) : (
-          <Login
-            setUser={setUser}
-            setLogged={setLogged}
-            setRequestedData={setRequestedData}
-            user={user}
-            requestedData={requestedData}
-          />
-        )}
-      </div>
-      <Footer></Footer>
+      <Footer />
     </div>
   );
 };

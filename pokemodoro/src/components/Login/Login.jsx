@@ -22,7 +22,7 @@ const Login = ({
   //create user (chamada no click register) (importar pra outro documento)
   const createUser = () =>
     axios
-      .post(`https://pokemodoro-api.herokuapp.com/user/`, {
+      .post(`https://web-production-be3b.up.railway.app/user`, {
         name: user,
         password: sha256(password),
       })
@@ -47,7 +47,7 @@ const Login = ({
   async function reqUser() {
     console.log(user);
     const response = await axios.get(
-      `https://pokemodoro-api.herokuapp.com/user/${user}`
+      `https://web-production-be3b.up.railway.app/user/${user}`
     );
     setRequestedData(response.data);
     console.log(requestedData);
